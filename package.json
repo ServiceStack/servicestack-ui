@@ -1,0 +1,28 @@
+{
+  "name": "@servicestack/ui",
+  "version": "0.0.0",
+  "description": "TypeScript Definitions for ServiceStack built-in UI's",
+  "homepage": "https://github.com/ServiceStack/servicestack-ui",
+  "types": "index.d.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ServiceStack/servicestack-ui.git"
+  },
+  "keywords": [
+    "servicestack",
+    "ui",
+    "locode",
+    "api-explorer",
+    "admin-ui"
+  ],
+  "bugs": {
+    "url": "https://github.com/ServiceStack/Issues"
+  },
+  "author": "ServiceStack, Inc. (https://servicestack.net)",
+  "license": "BSD-3-Clause"
+}
