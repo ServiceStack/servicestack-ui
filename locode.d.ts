@@ -22,7 +22,9 @@ export function resolveApiUrl(op: string): string;
  * @type {JsonServiceClient}
  */
 export let client: JsonServiceClient;
-/** @type {{expanded: boolean, operations: MetadataOperationType[], tag: string}[]} */
+/** Organized data structure to render Sidebar
+ * @remarks
+ * @type {{expanded: boolean, operations: MetadataOperationType[], tag: string}[]} */
 export let sideNav: {
     expanded: boolean;
     operations: MetadataOperationType[];
