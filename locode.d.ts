@@ -12,11 +12,16 @@ import { App, Forms, MetadataOperationType, MetadataType, MetadataPropertyType, 
  */
 export function createClient(fn?: Function): JsonServiceClient;
 /**
+ * Resolve Absolute URL for API Name
+ * @param {string} op
+ * @return {string}
+ */
+export function resolveApiUrl(op: string): string;
+/**
  * App's pre-configured `JsonServiceClient` instance for making typed API requests
  * @type {JsonServiceClient}
  */
 export let client: JsonServiceClient;
-export function resolveApiUrl(op: string): any;
 /** @type {{expanded: boolean, operations: MetadataOperationType[], tag: string}[]} */
 export let sideNav: {
     expanded: boolean;
@@ -30,7 +35,7 @@ export let TypesMap: Record<string, MetadataType>;
 export let FullTypesMap: Record<string, MetadataType>;
 export let getOp: (opName: string) => MetadataOperationType;
 export let getType: (typeRef: string | {
-    namespace: string;
+    namespace?: string;
     name: string;
 }) => MetadataType;
 export let isEnum: (type: string) => boolean;
@@ -38,9 +43,9 @@ export let enumValues: (type: string) => {
     key: string;
     value: string;
 }[];
-export let getIcon: ({ op, type }: {
-    op: MetadataOperationType;
-    type: MetadataType;
+export let getIcon: (args: {
+    op?: MetadataOperationType;
+    type?: MetadataType;
 }) => {
     svg: string;
 };
@@ -86,16 +91,16 @@ export function apiState(op: MetadataOperationType): {
 /**
  * All CRUD API States available for this operation
  * @typedef {{
-    opPatch: MetadataOperationType,
-    apiPatch: ApiState,
-    apiUpdate: ApiState,
-    opQuery: MetadataOperationType,
-    apiQuery: ApiState,
-    opCreate: MetadataOperationType,
-    opUpdate: MetadataOperationType,
-    opDelete: MetadataOperationType,
-    apiCreate: ApiState,
-    apiDelete: ApiState
+    opQuery: MetadataOperationType|null,
+    opCreate: MetadataOperationType|null,
+    opPatch: MetadataOperationType|null,
+    opUpdate: MetadataOperationType|null,
+    opDelete: MetadataOperationType|null,
+    apiQuery: ApiState|null,
+    apiCreate: ApiState|null,
+    apiPatch: ApiState|null,
+    apiUpdate: ApiState|null,
+    apiDelete: ApiState|null
 }} State
  */
 /**
@@ -253,16 +258,16 @@ export type ApiState = ReturnType<typeof apiState>;
  * All CRUD API States available for this operation
  */
 export type State = {
-    opPatch: MetadataOperationType;
-    apiPatch: ApiState;
-    apiUpdate: ApiState;
-    opQuery: MetadataOperationType;
-    apiQuery: ApiState;
-    opCreate: MetadataOperationType;
-    opUpdate: MetadataOperationType;
-    opDelete: MetadataOperationType;
-    apiCreate: ApiState;
-    apiDelete: ApiState;
+    opQuery: MetadataOperationType | null;
+    opCreate: MetadataOperationType | null;
+    opPatch: MetadataOperationType | null;
+    opUpdate: MetadataOperationType | null;
+    opDelete: MetadataOperationType | null;
+    apiQuery: ApiState | null;
+    apiCreate: ApiState | null;
+    apiPatch: ApiState | null;
+    apiUpdate: ApiState | null;
+    apiDelete: ApiState | null;
 };
 export type LocodeRoutes = {
     op?: string;

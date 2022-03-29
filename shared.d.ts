@@ -809,14 +809,10 @@ export function createRequest(op: MetadataOperationType, args: any | null): any;
 /** @param {string} name
     @param {*} obj */
 export function createDto(name: string, obj: any): any;
-/** @param {AppMetadata} app
- *  @param {string} appName */
-export function appApis(app: AppMetadata, appName: string): {
+export function appObjects(app: any, appName: any): {
     /** Global Cache */
     CACHE: {};
-    /**
-     * HTTP Errors specially handled by Locode
-     */
+    /** HTTP Errors specially handled by Locode */
     HttpErrors: Record<number, string>;
     /** Map of Request DTO names to `MetadataOperationType` */
     OpsMap: Record<string, MetadataOperationType>;
@@ -824,24 +820,33 @@ export function appApis(app: AppMetadata, appName: string): {
     TypesMap: Record<string, MetadataType>;
     /** Map of DTO namespace + names to `MetadataType` */
     FullTypesMap: Record<string, MetadataType>;
-    /** Find `MetadataOperationType` by API name  */
-    getOp: (opName: string) => MetadataOperationType;
-    /** Find `MetadataType` by DTO name  */
-    getType: (typeRef: {
-        namespace: string | null;
+};
+/**
+ * Generic functionality around AppMetadata
+ * @param {AppMetadata} app
+ * @param {string} appName
+ * @return {{
+    getType: (typeRef:({namespace?: string, name: string})|string) => null|MetadataType,
+    isEnum: (type:string) => boolean,
+    getOp: (opName:string) => MetadataOperationType,
+    enumValues: (type:string) => {key: string, value: string}[],
+    getIcon: (args:{op?: MetadataOperationType, type?: MetadataType}) => {svg:string}
+}}
+ */
+export function appApis(app: AppMetadata, appName: string): {
+    getType: (typeRef: ({
+        namespace?: string;
         name: string;
-    } | string) => MetadataType;
-    /** Check whether a Type is an Enum  */
+    }) | string) => null | MetadataType;
     isEnum: (type: string) => boolean;
-    /** Get Enum Values of an Enum Type  */
+    getOp: (opName: string) => MetadataOperationType;
     enumValues: (type: string) => {
         key: string;
         value: string;
     }[];
-    /** Get API Icon  */
-    getIcon: ({ op, type }: {
-        op: MetadataOperationType | null;
-        type: MetadataType | null;
+    getIcon: (args: {
+        op?: MetadataOperationType;
+        type?: MetadataType;
     }) => {
         svg: string;
     };

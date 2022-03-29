@@ -8,7 +8,7 @@ export let TypesMap: Record<string, MetadataType>;
 export let FullTypesMap: Record<string, MetadataType>;
 export let getOp: (opName: string) => MetadataOperationType;
 export let getType: (typeRef: string | {
-    namespace: string;
+    namespace?: string;
     name: string;
 }) => MetadataType;
 export let isEnum: (type: string) => boolean;
@@ -16,9 +16,9 @@ export let enumValues: (type: string) => {
     key: string;
     value: string;
 }[];
-export let getIcon: ({ op, type }: {
-    op: MetadataOperationType;
-    type: MetadataType;
+export let getIcon: (args: {
+    op?: MetadataOperationType;
+    type?: MetadataType;
 }) => {
     svg: string;
 };
