@@ -1,5 +1,9 @@
-// Type definitions for ServiceStack UI
-// Project: https://servicestack.net
+/**
+ * Type definitions for ServiceStack UI
+ * Project: https://servicestack.net
+ *
+ * @packageDocumentation
+ */
 
 import * as _shared from './shared';
 import * as _client from './client';
