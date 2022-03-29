@@ -1,10 +1,20 @@
 import { ApiResult, JsonServiceClient } from './client'
 import { App, Forms, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, Breakpoints, AuthenticateResponse, AdminUsersInfo } from './shared'
 
-/** @param {Function} [fn]
- *  @return {JsonServiceClient}
+/**
+ * Create a new `JsonServiceStack` client instance configured with the authenticated user
+ *
+ * @remarks
+ * For typical API requests it's recommended to use the UI's pre-configured **client** instance
+ *
+ * @param {Function} [fn]
+ * @return {JsonServiceClient}
  */
 export function createClient(fn?: Function): JsonServiceClient;
+/**
+ * App's pre-configured `JsonServiceClient` instance for making typed API requests
+ * @type {JsonServiceClient}
+ */
 export let client: JsonServiceClient;
 export function resolveApiUrl(op: string): any;
 /** @type {{expanded: boolean, operations: MetadataOperationType[], tag: string}[]} */
@@ -35,7 +45,10 @@ export let getIcon: ({ op, type }: {
     svg: string;
 };
 
-/** @param {MetadataOperationType} op */
+/**
+ * Create a new state for an API that encapsulates its invocation and execution
+ * @param {MetadataOperationType} op
+ */
 export function apiState(op: MetadataOperationType): {
     op: MetadataOperationType;
     client: any;
@@ -83,6 +96,7 @@ export function apiState(op: MetadataOperationType): {
 /**
  * @param {string} opName
  * @return {State}
+ * @internal
  */
 export function createState(opName: string): State;
 /** @type {function(string, boolean?): boolean} */
@@ -95,7 +109,11 @@ export let breakpoints: Breakpoints & {
 };
 /** @typedef {{op?:string,tab?:string,provider?:string,preview?:string,body?:string,doc?:string,skip?:string,new?:string,edit?:string}} LocodeRoutes */
 /** @typedef {{onEditChange(any): void, update(): void, uiHref(any): string}} LocodeRoutesExtend */
-/** @type {LocodeRoutes & LocodeRoutesExtend & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}} */
+/**
+ * The App's reactive `routes`  navigation component used for all App navigation
+ *
+ * @type {LocodeRoutes & LocodeRoutesExtend & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}}
+ */
 export let routes: LocodeRoutes & LocodeRoutesExtend & {
     page: string;
     set: ((arg0: any) => void);
@@ -103,7 +121,10 @@ export let routes: LocodeRoutes & LocodeRoutesExtend & {
     to: ((arg0: any) => void);
     href: ((arg0: any) => string);
 };
-/** @type {{
+/**
+ * Manage users query & filter preferences in the Users browsers localStorage
+ *
+ * @type {{
     op: (op:string) => any,
     lookup: (op:string) => any,
     saveOp: (op:string, fn:Function) => void,
@@ -133,7 +154,10 @@ export let settings: {
     opProp: (op: string, name: string) => any;
     clearPrefs: (op: string) => void;
 };
-/** @type {{
+/**
+ * App's primary reactive store maintaining global functionality for Locode Apps
+ *
+ * @type {{
     cachedFetch: (url:string) => Promise<string>,
     copied: boolean,
     sideNav: {expanded: boolean, operations: MetadataOperationType[], tag: string}[],
