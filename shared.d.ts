@@ -1301,10 +1301,16 @@ declare function typeProperties(TypesMap: {
 /** @typedef {Record<'2xl'|'xl'|'lg'|'md'|'sm',boolean>} Breakpoints */
 /**
  * Returns a reactive store that maintains different resolution states:
- * Defaults: 2xl:1536, xl:1280, lg:1024, md:768, sm:640
- * E.g. at 1200px: { 2xl:false, xl:false, lg:true, md:true, sm:true }
+ *
+ * @remarks
  * Events:
  *   breakpoint:change - the browser width changed breakpoints
+ *
+ * @defaultValue { 2xl:1536, xl:1280, lg:1024, md:768, sm:640 }
+ *
+ * @example
+ * E.g. at 1200px: { 2xl:false, xl:false, lg:true, md:true, sm:true }
+ *
  * @param {App} App
  * @param {{handlers: {change({previous: *, current: *}): void}}} options
  * @returns {Breakpoints & {previous:Breakpoints,current:Breakpoints,snap:()=>void}}
@@ -1320,6 +1326,7 @@ export type Breakpoints = Record<'2xl' | 'xl' | 'lg' | 'md' | 'sm', boolean>;
 /**
  * Maintain page route state:
  *  - /{pageKey}?{queryKeys}
+ * @remarks
  * Events:
  *   route:init - loaded from URL
  *   route:to   - navigated by to()
@@ -1343,7 +1350,8 @@ export function usePageRoutes(App: App, { page, queryKeys, handlers, extend }: {
 
 /** @typedef {import('../js/createApp').App} App */
 /**
- * Implements https://tailwindui.com transition states by encoding in data-transition attr, e.g:
+ * Implements https://tailwindui.com transition states by encoding in data-transition attr
+ * @example
  * data-transition="{
  *   entering: { cls:'transition ease-in-out duration-300 transform', from:'-translate-x-full', to:'translate-x-0'},
  *   leaving:  { cls:'transition ease-in-out duration-300 transform', from:'translate-x-0',     to:'-translate-x-full' }

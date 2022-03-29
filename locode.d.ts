@@ -288,6 +288,7 @@ export type LocodeRoutesExtend = {
 
 export declare var App:App
 export declare var Forms:Forms
+/** Method Signature of custom Create Form Components */
 export interface CreateComponentArgs {
     store: typeof store;
     routes: typeof routes;
@@ -298,6 +299,7 @@ export interface CreateComponentArgs {
 }
 export declare type CreateComponent = (args:CreateComponentArgs) => Record<string,any>;
 
+/** Method signature of custom Edit Form Components */
 export interface EditComponentArgs {
     store: typeof store;
     routes: typeof routes;

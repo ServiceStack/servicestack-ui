@@ -163,6 +163,7 @@ export type UiRoutesExtend = {
 
 export declare var App:App
 export declare var Forms:Forms
+/** Method Signature of custom Doc Components */
 export interface DocComponentArgs {
     store: typeof store;
     routes: typeof routes;
