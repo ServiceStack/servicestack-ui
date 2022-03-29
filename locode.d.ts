@@ -79,8 +79,13 @@ export function apiState(op: MetadataOperationType): {
         @param {Record<string,any>} [queryArgs]*/
     apiForm(formData: FormData, queryArgs?: Record<string, any>): any;
 };
-/** @typedef {ReturnType<apiState>} ApiState */
-/** @typedef {{
+/**
+ * Create a new state for an API that encapsulates its invocation and execution
+ * @typedef {ReturnType<apiState>} ApiState
+ */
+/**
+ * All CRUD API States available for this operation
+ * @typedef {{
     opPatch: MetadataOperationType,
     apiPatch: ApiState,
     apiUpdate: ApiState,
@@ -165,7 +170,7 @@ export let settings: {
 };
 /**
  * App's primary reactive store maintaining global functionality for Locode Apps
- *
+ * @remarks
  * @type {{
     cachedFetch: (url:string) => Promise<string>,
     copied: boolean,
@@ -240,7 +245,13 @@ export let store: {
     readonly useLang: string;
     invalidAccess: () => string | null;
 };
+/**
+ * Create a new state for an API that encapsulates its invocation and execution
+ */
 export type ApiState = ReturnType<typeof apiState>;
+/**
+ * All CRUD API States available for this operation
+ */
 export type State = {
     opPatch: MetadataOperationType;
     apiPatch: ApiState;
