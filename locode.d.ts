@@ -59,10 +59,12 @@ export function apiState(op: MetadataOperationType): {
         input: InputInfo;
         rowClass: string;
     }) => void): any;
-    /** @param {*} [dtoArgs]
-     @param {*} [queryArgs]*/
-    apiSend(dtoArgs?: any, queryArgs?: any): any;
-    apiForm(formData: any, queryArgs: any): any;
+    /** @param {Record<string,any>} dtoArgs
+        @param {Record<string,any>} [queryArgs]*/
+    apiSend(dtoArgs: Record<string, any>, queryArgs?: Record<string, any>): any;
+    /** @param {FormData} formData
+        @param {Record<string,any>} [queryArgs]*/
+    apiForm(formData: FormData, queryArgs?: Record<string, any>): any;
 };
 /** @typedef {ReturnType<apiState>} ApiState */
 /** @typedef {{
@@ -238,21 +240,21 @@ export type LocodeRoutesExtend = {
 export declare var App:App
 export declare var Forms:Forms
 export interface CreateComponentArgs {
-    store: typeof store
-    routes: typeof routes
-    settings: typeof settings
-    state: () => ReturnType<typeof createState>
-    save: () => void
-    done: () => void
+    store: typeof store;
+    routes: typeof routes;
+    settings: typeof settings;
+    state: () => State;
+    save: () => void;
+    done: () => void;
 }
 export declare type CreateComponent = (args:CreateComponentArgs) => Record<string,any>;
 
 export interface EditComponentArgs {
-    store: typeof store
-    routes: typeof routes
-    settings: typeof settings
-    state: () => ReturnType<typeof createState>
-    save: () => void
-    done: () => void
+    store: typeof store;
+    routes: typeof routes;
+    settings: typeof settings;
+    state: () => State;
+    save: () => void;
+    done: () => void;
 }
 export declare type EditComponent = (args:EditComponentArgs) => Record<string,any>;
