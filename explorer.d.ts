@@ -38,9 +38,15 @@ export let breakpoints: Breakpoints & {
     current: Breakpoints;
     snap: (() => void);
 };
-/** @typedef {{op?:string,tab?:string,lang?:string,provider?:string,preview?:string,body?:string,doc?:string,detailSrc?:string,form?:string,response?:string}} UiRoutes */
-/** @typedef {{queryHref(): string}} UiRoutesExtend */
-/** @type {UiRoutes & UiRoutesExtend & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}} */
+/** Custom route params used in API Explorer
+ * @typedef {{op?:string,tab?:string,lang?:string,provider?:string,preview?:string,body?:string,doc?:string,detailSrc?:string,form?:string,response?:string}} UiRoutes */
+/** Route methods used in API Explorer
+ * @typedef {{queryHref(): string}} UiRoutesExtend */
+/**
+ * The App's reactive `routes` navigation component used for all App navigation
+ * @remarks
+ * @type {UiRoutes & UiRoutesExtend & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}}
+ */
 export let routes: UiRoutes & UiRoutesExtend & {
     page: string;
     set: ((arg0: any) => void);
@@ -145,6 +151,9 @@ export let store: {
     readonly useLang: string;
     invalidAccess: () => string | null;
 };
+/**
+ * Custom route params used in API Explorer
+ */
 export type UiRoutes = {
     op?: string;
     tab?: string;
@@ -157,6 +166,9 @@ export type UiRoutes = {
     form?: string;
     response?: string;
 };
+/**
+ * Route methods used in API Explorer
+ */
 export type UiRoutesExtend = {
     queryHref(): string;
 };

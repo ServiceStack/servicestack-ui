@@ -127,10 +127,12 @@ export let breakpoints: Breakpoints & {
     current: Breakpoints;
     snap: (() => void);
 };
-/** @typedef {{op?:string,tab?:string,provider?:string,preview?:string,body?:string,doc?:string,skip?:string,new?:string,edit?:string}} LocodeRoutes */
-/** @typedef {{onEditChange(any): void, update(): void, uiHref(any): string}} LocodeRoutesExtend */
+/** Custom route params used in Locode
+ * @typedef {{op?:string,tab?:string,provider?:string,preview?:string,body?:string,doc?:string,skip?:string,new?:string,edit?:string}} LocodeRoutes */
+/** Route methods used in Locode
+ * @typedef {{onEditChange(any): void, update(): void, uiHref(any): string}} LocodeRoutesExtend */
 /**
- * The App's reactive `routes`  navigation component used for all App navigation
+ * The App's reactive `routes` navigation component used for all App navigation
  * @remarks
  * @type {LocodeRoutes & LocodeRoutesExtend & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}}
  */
@@ -271,6 +273,9 @@ export type State = {
     apiUpdate: ApiState | null;
     apiDelete: ApiState | null;
 };
+/**
+ * Custom route params used in Locode
+ */
 export type LocodeRoutes = {
     op?: string;
     tab?: string;
@@ -282,6 +287,9 @@ export type LocodeRoutes = {
     new?: string;
     edit?: string;
 };
+/**
+ * Route methods used in Locode
+ */
 export type LocodeRoutesExtend = {
     onEditChange(any: any): void;
     update(): void;

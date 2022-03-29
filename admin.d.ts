@@ -25,9 +25,13 @@ export let getIcon: (args: {
 
 /** @type {function(string, boolean?): boolean} */
 export let transition: (arg0: string, arg1: boolean | null) => boolean;
-/**: SignIn:provider */
-/** @typedef {{tab?:string,provider?:string,q?:string,page?:string,sort?:string,new?:string,edit?:string}} AdminRoutes */
-/** @type {AdminRoutes & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}} */
+/** Route methods used in Admin UI
+ * @typedef {{tab?:string,provider?:string,q?:string,page?:string,sort?:string,new?:string,edit?:string}} AdminRoutes */
+/**
+ * The App's reactive `routes` navigation component used for all App navigation
+ * @remarks
+ * @type {AdminRoutes & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}}
+ */
 export let routes: AdminRoutes & {
     page: string;
     set: ((arg0: any) => void);
@@ -83,6 +87,9 @@ export let store: {
     api: ApiResult<AuthenticateResponse> | null;
     readonly authPermissions: any;
 };
+/**
+ * Route methods used in Admin UI
+ */
 export type AdminRoutes = {
     tab?: string;
     provider?: string;
