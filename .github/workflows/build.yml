@@ -14,9 +14,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: Clear docs folder
+      - name: Clear folders
         run: |
-          rm -rf docs
+          rm -rf docs etc temp
+          mkdir docs etc
       - name: Install and build
         run: |
           npm install

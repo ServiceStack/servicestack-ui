@@ -12,5 +12,5 @@ export {
     _client as client, 
     _explorer as explorer, 
     _locode as locode, 
-    _admin as admin 
+    _admin as admin,
 }
