@@ -107,6 +107,7 @@ export function createState(opName: string): State;
 export let transition: (prop: string, enter?: boolean) => boolean;
 /**
  * Reactive store to maintain & programatically access Tailwind's responsive breakpoints
+ * @remarks
  * @type {Breakpoints & {previous: Breakpoints, current: Breakpoints, snap: (function(): void)}}
  * */
 export let breakpoints: Breakpoints & {
@@ -118,7 +119,7 @@ export let breakpoints: Breakpoints & {
 /** @typedef {{onEditChange(any): void, update(): void, uiHref(any): string}} LocodeRoutesExtend */
 /**
  * The App's reactive `routes`  navigation component used for all App navigation
- *
+ * @remarks
  * @type {LocodeRoutes & LocodeRoutesExtend & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}}
  */
 export let routes: LocodeRoutes & LocodeRoutesExtend & {
@@ -130,7 +131,7 @@ export let routes: LocodeRoutes & LocodeRoutesExtend & {
 };
 /**
  * Manage users query & filter preferences in the Users browsers localStorage
- *
+ * @remarks
  * @type {{
     op: (op:string) => any,
     lookup: (op:string) => any,
