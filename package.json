@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "git push && git push --tags",
     "docs:clean": "sed -i '/^export declare var /d' ./*.d.ts",
-    "docs:build": "api-extractor run --local --verbose && api-documenter markdown -i temp -o docs"
+    "docs:build": "api-extractor run --local --verbose && api-documenter markdown -i temp -o docs && node -e \"require('child_process').execSync(('cp '+path.join('config','custom','*.*')+' docs').replace(/^cp/,path.sep!='/'?'copy':'cp'))\""
   },
   "repository": {
     "type": "git",
