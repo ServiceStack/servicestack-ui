@@ -99,9 +99,16 @@ export function apiState(op: MetadataOperationType): {
  * @internal
  */
 export function createState(opName: string): State;
-/** @type {function(string, boolean?): boolean} */
-export let transition: (arg0: string, arg1: boolean | null) => boolean;
-/** @type {Breakpoints & {previous: Breakpoints, current: Breakpoints, snap: (function(): void)}} */
+/**
+ * Execute tailwindui.com transition definition rules
+ *
+ * @type {(prop:string,enter?:boolean) => boolean}
+ * */
+export let transition: (prop: string, enter?: boolean) => boolean;
+/**
+ * Reactive store to maintain & programatically access Tailwind's responsive breakpoints
+ * @type {Breakpoints & {previous: Breakpoints, current: Breakpoints, snap: (function(): void)}}
+ * */
 export let breakpoints: Breakpoints & {
     previous: Breakpoints;
     current: Breakpoints;
@@ -137,8 +144,9 @@ export let routes: LocodeRoutes & LocodeRoutesExtend & {
         opProp: (op:string, name:string) => string
     },
     opProp: (op:string, name:string) => any,
-    clearPrefs: (op:string) => void
- }} */
+    clearPrefs: (op:string) => void }}
+ *
+ */
 export let settings: {
     op: (op: string) => any;
     lookup: (op: string) => any;
