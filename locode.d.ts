@@ -113,7 +113,7 @@ export function apiState(op: MetadataOperationType): {
 export function createState(opName: string): State;
 /**
  * Execute tailwindui.com transition definition rules
- *
+ * @remarks
  * @type {(prop:string,enter?:boolean) => boolean}
  * */
 export let transition: (prop: string, enter?: boolean) => boolean;

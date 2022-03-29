@@ -30,8 +30,12 @@ export let getIcon: (args: {
     svg: string;
 };
 
-/** @type {function(string, boolean?): boolean} */
-export let transition: (arg0: string, arg1: boolean | null) => boolean;
+/**
+ * Execute tailwindui.com transition definition rules
+ * @remarks
+ * @type {(prop:string,enter?:boolean) => boolean}
+ * */
+export let transition: (prop: string, enter?: boolean) => boolean;
 /** @type {Breakpoints & {previous: Breakpoints, current: Breakpoints, snap: (function(): void)}} */
 export let breakpoints: Breakpoints & {
     previous: Breakpoints;

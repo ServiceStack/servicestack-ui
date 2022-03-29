@@ -23,8 +23,12 @@ export let getIcon: (args: {
     svg: string;
 };
 
-/** @type {function(string, boolean?): boolean} */
-export let transition: (arg0: string, arg1: boolean | null) => boolean;
+/**
+ * Execute tailwindui.com transition definition rules
+ * @remarks
+ * @type {(prop:string,enter?:boolean) => boolean}
+ * */
+export let transition: (prop: string, enter?: boolean) => boolean;
 /** Route methods used in Admin UI
  * @typedef {{tab?:string,provider?:string,q?:string,page?:string,sort?:string,new?:string,edit?:string}} AdminRoutes */
 /**
