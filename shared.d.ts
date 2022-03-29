@@ -782,44 +782,64 @@ export declare class GetCrudEvents extends QueryDb<CrudEvent> implements IReturn
 }
 export declare var APP: AppMetadata;
 
-/** @template T,V
-    @param {T} o
-    @param {(a:T) => V} f
-    @returns {V|null} */
+/**
+ * Alt solution to optional chaining by only executing fn accessor if object is not null
+ * @example
+ * let a = b()?.c // equivalent to:
+ * let a = map(b(), x => x.c)
+ * @template T,V
+ * @param {T} o
+ * @param {(a:T) => V} f
+ * @returns {V|null}
+ */
 export function map<T, V>(o: T, f: (a: T) => V): V;
-/** @param {{[key:string]:string|any}} obj */
+/** Set class on document.body if truthy otherwise set `no{class}`
+ * @param {{[key:string]:string|any}} obj */
 export function setBodyClass(obj: {
     [key: string]: any;
 }): void;
-/** @param {string} name */
+/** Get CSS style property value
+ * @param {string} name */
 export function styleProperty(name: string): any;
 export function setStyleProperty(props: any): void;
-/** @param {boolean} [invalid=false]
-    @param {string} [cls] */
+/** Tailwind CSS classes for standard Input controls
+ * @param {boolean} [invalid=false]
+ * @param {string} [cls] */
 export function inputClass(invalid?: boolean, cls?: string): string;
-/** @param {ImageInfo} icon
-    @param {string} defaultSrc */
+/** Set the browser's page fav icon by icon
+ * @param {ImageInfo} icon
+ * @param {string} defaultSrc */
 export function setFavIcon(icon: ImageInfo, defaultSrc: string): void;
-/** @param {string} src */
+/** Set the browser's page fav icon by src
+ * @param {string} src */
 export function setFavIconSrc(src: string): void;
-export function highlight(src: any, language: any): any;
-/** @param {MetadataOperationType} op
-    @param {*?} args */
+/**
+ * High-level API around highlight.js to add syntax highlighting to language source cde
+ * @param {string} src
+ * @param {string} language
+ * @return {string}
+ */
+export function highlight(src: string, language: string): string;
+/** Create Request DTO from MetadataOperationType and map of args
+ * @param {MetadataOperationType} op
+ * @param {*?} args */
 export function createRequest(op: MetadataOperationType, args: any | null): any;
-/** @param {string} name
-    @param {*} obj */
+/** Create Request DTO from API Name and map of args
+ * @param {string} name
+ * @param {*} obj */
 export function createDto(name: string, obj: any): any;
+/**
+ * Useful generic collections around Metadata APIs
+ * @param app
+ * @param appName
+ * @return {{OpsMap: Record<string, MetadataOperationType>, HttpErrors: Record<number, string>, FullTypesMap: Record<string, MetadataType>, TypesMap: Record<string, MetadataType>, CACHE: {}}}
+ */
 export function appObjects(app: any, appName: any): {
-    /** Global Cache */
-    CACHE: {};
-    /** HTTP Errors specially handled by Locode */
-    HttpErrors: Record<number, string>;
-    /** Map of Request DTO names to `MetadataOperationType` */
     OpsMap: Record<string, MetadataOperationType>;
-    /** Map of DTO names to `MetadataType` */
-    TypesMap: Record<string, MetadataType>;
-    /** Map of DTO namespace + names to `MetadataType` */
+    HttpErrors: Record<number, string>;
     FullTypesMap: Record<string, MetadataType>;
+    TypesMap: Record<string, MetadataType>;
+    CACHE: {};
 };
 /**
  * Generic functionality around AppMetadata
@@ -851,155 +871,165 @@ export function appApis(app: AppMetadata, appName: string): {
         svg: string;
     };
 };
-/** @param {MetadataOperationType?} op
-    @param {AuthenticateResponse|null} auth */
+/** Check if array is not null or empty
+ * @param {any[]|null} arr */
+export function hasItems(arr: any[] | null): boolean;
+/** Check if Auth Session has access to API
+ * @param {MetadataOperationType?} op
+ * @param {AuthenticateResponse|null} auth */
 export function canAccess(op: MetadataOperationType | null, auth: AuthenticateResponse | null): boolean;
-/** @param {MetadataOperationType} op
-    @param {{roles:string[],permissions:string[]}} auth */
+/** Return error message if Auth Session cannot access API
+ * @param {MetadataOperationType} op
+ * @param {{roles:string[],permissions:string[]}} auth */
 export function invalidAccessMessage(op: MetadataOperationType, auth: {
     roles: string[];
     permissions: string[];
 }): string;
-/** @param {string} str */
-export function parseCookie(str: string): {};
-/** @param {function} createClient
-    @param {*} requestDto
-    @param {*} [queryArgs] */
+/** Parse cookie string into Map
+ * @param {string} str
+ * @return {Record<string,string>} */
+export function parseCookie(str: string): Record<string, string>;
+/** High-level API to invoke an API Request by Request DTO and optional queryString args
+ * @param {function} createClient
+ * @param {*} requestDto
+ * @param {*} [queryArgs] */
 export function apiSend(createClient: Function, requestDto: any, queryArgs?: any): any;
-/** @param {function} createClient
-    @param {*} requestDto
-    @param {FormData} formData
-    @param {*} [queryArgs] */
+/** High-level API to invoke an API Request by Request DTO, FormData and optional queryString args
+ * @param {function} createClient
+ * @param {*} requestDto
+ * @param {FormData} formData
+ * @param {*} [queryArgs] */
 export function apiForm(createClient: Function, requestDto: any, formData: FormData, queryArgs?: any): any;
-/** @param {string} text
-    @param {number} [timeout=3000] */
+/** Utility to copy text to OS clipboard
+ * @param {string} text
+ * @param {number} [timeout=3000] */
 export function copy(text: string, timeout?: number): void;
 export class copy {
-    /** @param {string} text
-        @param {number} [timeout=3000] */
+    /** Utility to copy text to OS clipboard
+     * @param {string} text
+     * @param {number} [timeout=3000] */
     constructor(text: string, timeout?: number);
     copied: boolean;
 }
-/** @param {ImageInfo} icon
- *  @param {*} [opt] */
+/** Render ImageInfo into HTML IMG
+ * @param {ImageInfo} icon
+ * @param {*} [opt] */
 export function iconHtml(icon: ImageInfo, opt?: any): string;
-/** @param {MetadataOperationType[]} ops
- *  @return {MetadataOperationType[]} */
+/** Sort & group operations operations in logical order
+ * @param {MetadataOperationType[]} ops
+ * @return {MetadataOperationType[]} */
 export function sortOps(ops: MetadataOperationType[]): MetadataOperationType[];
-export function toAppUrl(url: any): any;
+/**
+ * Return absolute URL from relative URL
+ * @param url
+ * @return {*|string}
+ */
+export function toAppUrl(url: any): any | string;
 /**: format methods */
-/** @param {number} val */
+/** Format number into USD currency
+ * @param {number} val */
 export function currency(val: number): string;
-/** @param {number} val */
-export function bytes(val: number): string;
-/** @param {string} tag
- *  @param {string} [child]
- *  @param {*} [attrs] */
+/** Format bytes into human-readable file size
+ * @param {number} val */
+export function bytes(val: number): any;
+/** HTML Tag builder
+ * @param {string} tag
+ * @param {string} [child]
+ * @param {*} [attrs] */
 export function htmlTag(tag: string, child?: string, attrs?: any): string;
-/** @param {string} href
- *  @param {*} [opt] */
+/** Create formatted HTML A URL links
+ * @param {string} href
+ * @param {*} [opt] */
 export function link(href: string, opt?: any): string;
-/** @param {string} email
- *  @param {*} [opt] */
+/** Create formatted HTML A mailto: links
+ * @param {string} email
+ * @param {*} [opt] */
 export function linkMailTo(email: string, opt?: any): string;
-/** @param {string} tel
- *  @param {*} [opt] */
+/** Create formatted HTML A tel: links
+ * @param {string} tel
+ * @param {*} [opt] */
 export function linkTel(tel: string, opt?: any): string;
-/** @param {string} url */
+/** Create HTML IMG Icon from URL
+ * @param {string} url */
 export function icon(url: string): string;
-/** @param {string} url */
+/** Create rounded HTML IMG Icon from URL
+ * @param {string} url */
 export function iconRounded(url: string): string;
-/** @param {string} url */
+/** Create HTML Link for file attachment
+ * @param {string} url */
 export function attachment(url: string): string;
-/** @param {HTMLImageElement} img
-    @param {string} [fallbackSrc] */
+/** Handle IMG onerror to populate fallback icon
+ * @param {HTMLImageElement} img
+ * @param {string} [fallbackSrc] */
 export function iconOnError(img: HTMLImageElement, fallbackSrc?: string): void;
-/** @param {string} src
-    @param {string} [fallbackSrc] */
-export function iconFallbackSrc(src: string, fallbackSrc?: string): string;
+/** Create icon with fallback
+ * @param {string} src
+ * @param {string} [fallbackSrc] */
+export function iconFallbackSrc(src: string, fallbackSrc?: string): any;
+/** marker fn, special-cased to hide from query results
+ * @param o
+ * @return {string}
+ */
 export function hidden(o: any): string;
-export namespace Crud {
-    const Create: string;
-    const Update: string;
-    const Patch: string;
-    const Delete: string;
-    const AnyRead: string[];
-    const AnyWrite: string[];
-    function isQuery(op: any): boolean;
-    function isCrud(op: any): any;
-    function isCreate(op: any): any;
-    function isUpdate(op: any): any;
-    function isPatch(op: any): any;
-    function isDelete(op: any): any;
-}
+/**
+ * API around CRUD APIs
+ * @type {{Delete: string, AnyWrite: string[], isCreate: (function(*): any), Create: string, isDelete: (function(*): any), AnyRead: string[], isQuery: (function(*): boolean|null), isCrud: (function(*): boolean|null), Update: string, Patch: string, isUpdate: (function(*): any), isPatch: (function(*): any)}}
+ */
+export const Crud: {
+    Delete: string;
+    AnyWrite: string[];
+    isCreate: ((arg0: any) => any);
+    Create: string;
+    isDelete: ((arg0: any) => any);
+    AnyRead: string[];
+    isQuery: ((arg0: any) => boolean | null);
+    isCrud: ((arg0: any) => boolean | null);
+    Update: string;
+    Patch: string;
+    isUpdate: ((arg0: any) => any);
+    isPatch: ((arg0: any) => any);
+};
 export function isAdminAuth(session?: {
     roles: string[];
 }): boolean;
-export function hasItems(arr: any[] | null): boolean;
-export namespace Files {
-    export { Ext };
-    export { Icons };
-    export { getExt };
-    export { extSrc };
-    export { encodeSvg };
-    export { canPreview };
-    export { svgToDataUri };
-    export { fileImageUri };
-    export { filePathUri };
-    export { formatBytes };
-    export { getFileName };
-    export { flush };
-}
-declare namespace Ext {
-    const img: string[];
-    const vid: string[];
-    const aud: string[];
-    const ppt: string[];
-    const xls: string[];
-    const doc: string[];
-    const zip: string[];
-    const exe: string[];
-    const att: string[];
-}
-declare namespace Icons {
-    const img_1: string;
-    export { img_1 as img };
-    const vid_1: string;
-    export { vid_1 as vid };
-    const aud_1: string;
-    export { aud_1 as aud };
-    const ppt_1: string;
-    export { ppt_1 as ppt };
-    const xls_1: string;
-    export { xls_1 as xls };
-    const doc_1: string;
-    export { doc_1 as doc };
-    const zip_1: string;
-    export { zip_1 as zip };
-    const exe_1: string;
-    export { exe_1 as exe };
-    const att_1: string;
-    export { att_1 as att };
-}
-/** @param {string} path */
-declare function getExt(path: string): any;
-declare function extSrc(ext: any): string;
-/** @param {string} s */
-declare function encodeSvg(s: string): string;
-/** @param {string} path */
-declare function canPreview(path: string): boolean;
-/** @param {string} svg */
-declare function svgToDataUri(svg: string): string;
-/** @param {File} file */
-declare function fileImageUri(file: File): any;
-/** @param {string} path */
-declare function filePathUri(path: string): any;
-/** @param {number} bytes
- *  @param {number} [d=2] */
-declare function formatBytes(bytes: number, d?: number): string;
-/** @param {string} path */
-declare function getFileName(path: string): any;
-declare function flush(): void;
+/** Wrapper around SVG icons for File Types
+ * @remarks
+ * @type {{Ext: {vid: string[], zip: string[], att: string[], aud: string[], img: string[], exe: string[], ppt: string[], doc: string[], xls: string[]}, getExt: ((function(string): (null|string))|*), fileImageUri: ((function(File): (string))|*), filePathUri: ((function(string): (null|string))|*), flush: flush, Icons: {vid: string, zip: string, att: string, aud: string, img: string, exe: string, ppt: string, doc: string, xls: string}, extSrc: ((function(*): (string|null))|*), encodeSvg: (function(string): string), svgToDataUri: (function(string): string), getFileName: ((function(string): (null|string))|*), formatBytes: ((function(number, number=): (string|string))|*), canPreview: ((function(string): (boolean|*))|*)}}
+ */
+export const Files: {
+    Ext: {
+        vid: string[];
+        zip: string[];
+        att: string[];
+        aud: string[];
+        img: string[];
+        exe: string[];
+        ppt: string[];
+        doc: string[];
+        xls: string[];
+    };
+    getExt: (((arg0: string) => (null | string)) | any);
+    fileImageUri: (((arg0: File) => (string)) | any);
+    filePathUri: (((arg0: string) => (null | string)) | any);
+    flush: flush;
+    Icons: {
+        vid: string;
+        zip: string;
+        att: string;
+        aud: string;
+        img: string;
+        exe: string;
+        ppt: string;
+        doc: string;
+        xls: string;
+    };
+    extSrc: (((arg0: any) => (string | null)) | any);
+    encodeSvg: ((arg0: string) => string);
+    svgToDataUri: ((arg0: string) => string);
+    getFileName: (((arg0: string) => (null | string)) | any);
+    formatBytes: (((arg0: number, arg1: number | undefined) => (string | string)) | any);
+    canPreview: (((arg0: string) => (boolean | any)) | any);
+};
 
 /** @typedef {<T>(args:T) => T} Identity */
 /** @typedef {{
