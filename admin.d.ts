@@ -19,7 +19,9 @@ export let enumValues: (type: string) => {
 export let getIcon: ({ op, type }: {
     op: MetadataOperationType;
     type: MetadataType;
-}) => any;
+}) => {
+    svg: string;
+};
 
 /** @type {function(string, boolean?): boolean} */
 export let transition: (arg0: string, arg1: boolean | null) => boolean;

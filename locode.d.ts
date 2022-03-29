@@ -31,7 +31,9 @@ export let enumValues: (type: string) => {
 export let getIcon: ({ op, type }: {
     op: MetadataOperationType;
     type: MetadataType;
-}) => any;
+}) => {
+    svg: string;
+};
 
 /** @param {MetadataOperationType} op */
 export function apiState(op: MetadataOperationType): {
@@ -62,14 +64,25 @@ export function apiState(op: MetadataOperationType): {
     apiSend(dtoArgs?: any, queryArgs?: any): any;
     apiForm(formData: any, queryArgs: any): any;
 };
-/** @param {string} opName */
-export function createState(opName: string): {
-    opQuery: MetadataOperationType;
-    opCreate: MetadataOperationType;
-    opPatch: MetadataOperationType;
-    opUpdate: MetadataOperationType;
-    opDelete: MetadataOperationType;
-};
+/** @typedef {ReturnType<apiState>} ApiState */
+/** @typedef {{
+    opPatch: MetadataOperationType,
+    apiPatch: ApiState,
+    apiUpdate: ApiState,
+    opQuery: MetadataOperationType,
+    apiQuery: ApiState,
+    opCreate: MetadataOperationType,
+    opUpdate: MetadataOperationType,
+    opDelete: MetadataOperationType,
+    apiCreate: ApiState,
+    apiDelete: ApiState
+}} State
+ */
+/**
+ * @param {string} opName
+ * @return {State}
+ */
+export function createState(opName: string): State;
 /** @type {function(string, boolean?): boolean} */
 export let transition: (arg0: string, arg1: boolean | null) => boolean;
 /** @type {Breakpoints & {previous: Breakpoints, current: Breakpoints, snap: (function(): void)}} */
@@ -191,6 +204,19 @@ export let store: {
     readonly authPermissions: string[];
     readonly useLang: string;
     invalidAccess: () => string | null;
+};
+export type ApiState = ReturnType<typeof apiState>;
+export type State = {
+    opPatch: MetadataOperationType;
+    apiPatch: ApiState;
+    apiUpdate: ApiState;
+    opQuery: MetadataOperationType;
+    apiQuery: ApiState;
+    opCreate: MetadataOperationType;
+    opUpdate: MetadataOperationType;
+    opDelete: MetadataOperationType;
+    apiCreate: ApiState;
+    apiDelete: ApiState;
 };
 export type LocodeRoutes = {
     op?: string;

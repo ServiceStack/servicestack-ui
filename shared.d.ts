@@ -783,10 +783,10 @@ export declare class GetCrudEvents extends QueryDb<CrudEvent> implements IReturn
 export declare var APP: AppMetadata;
 
 /** @template T,V
-    @param {*} o
+    @param {T} o
     @param {(a:T) => V} f
     @returns {V|null} */
-export function map<T, V>(o: any, f: (a: T) => V): V;
+export function map<T, V>(o: T, f: (a: T) => V): V;
 /** @param {{[key:string]:string|any}} obj */
 export function setBodyClass(obj: {
     [key: string]: any;
@@ -830,7 +830,9 @@ export function appApis(app: AppMetadata, appName: string): {
     getIcon: ({ op, type }: {
         op: MetadataOperationType | null;
         type: MetadataType | null;
-    }) => any;
+    }) => {
+        svg: string;
+    };
 };
 /** @param {MetadataOperationType?} op
     @param {AuthenticateResponse|null} auth */
