@@ -1,3 +1,11 @@
+
+#tsdocs - api-extractor
+docs/
+etc/
+temp/
+tsdoc-metadata.json
+
+
 # Logs
 logs
 *.log

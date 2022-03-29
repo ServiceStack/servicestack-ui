@@ -1,27 +1,16 @@
 // Type definitions for ServiceStack UI
 // Project: https://servicestack.net
 
-/*
-import * as admin from './admin'
-import * as client from './client'
-import * as explorer from './explorer'
-import * as locode from './locode'
-import * as shared from './shared'
+import * as _shared from './shared';
+import * as _client from './client';
+import * as _explorer from './explorer';
+import * as _locode from './locode';
+import * as _admin from './admin';
 
-declare module "ui/admin" {
-    export = admin;
+export { 
+    _shared as shared, 
+    _client as client, 
+    _explorer as explorer, 
+    _locode as locode, 
+    _admin as admin 
 }
-declare module "ui/client" {
-    export = client;
-}
-declare module "ui/explorer" {
-    export = explorer;
-}
-declare module "ui/locode" {
-    export = locode;
-}
-declare module "ui/shared" {
-    export = shared;
-}
-*/
-

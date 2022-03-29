@@ -5,9 +5,11 @@
   "homepage": "https://github.com/ServiceStack/servicestack-ui",
   "types": "index.d.ts",
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "docs:clean": "sed -i '/^export declare var /d' ./*.d.ts",
+    "docs:build": "api-extractor run --local --verbose && api-documenter markdown -i temp -o docs"
   },
   "repository": {
     "type": "git",
