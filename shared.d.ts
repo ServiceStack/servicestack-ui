@@ -931,7 +931,7 @@ export function toAppUrl(url: any): any | string;
 export function currency(val: number): string;
 /** Format bytes into human-readable file size
  * @param {number} val */
-export function bytes(val: number): any;
+export function bytes(val: number): string;
 /** HTML Tag builder
  * @param {string} tag
  * @param {string} [child]
@@ -965,7 +965,7 @@ export function iconOnError(img: HTMLImageElement, fallbackSrc?: string): void;
 /** Create icon with fallback
  * @param {string} src
  * @param {string} [fallbackSrc] */
-export function iconFallbackSrc(src: string, fallbackSrc?: string): any;
+export function iconFallbackSrc(src: string, fallbackSrc?: string): string;
 /** marker fn, special-cased to hide from query results
  * @param o
  * @return {string}
@@ -992,44 +992,70 @@ export const Crud: {
 export function isAdminAuth(session?: {
     roles: string[];
 }): boolean;
-/** Wrapper around SVG icons for File Types
- * @remarks
- * @type {{Ext: {vid: string[], zip: string[], att: string[], aud: string[], img: string[], exe: string[], ppt: string[], doc: string[], xls: string[]}, getExt: ((function(string): (null|string))|*), fileImageUri: ((function(File): (string))|*), filePathUri: ((function(string): (null|string))|*), flush: flush, Icons: {vid: string, zip: string, att: string, aud: string, img: string, exe: string, ppt: string, doc: string, xls: string}, extSrc: ((function(*): (string|null))|*), encodeSvg: (function(string): string), svgToDataUri: (function(string): string), getFileName: ((function(string): (null|string))|*), formatBytes: ((function(number, number=): (string|string))|*), canPreview: ((function(string): (boolean|*))|*)}}
- */
-export const Files: {
-    Ext: {
-        vid: string[];
-        zip: string[];
-        att: string[];
-        aud: string[];
-        img: string[];
-        exe: string[];
-        ppt: string[];
-        doc: string[];
-        xls: string[];
-    };
-    getExt: (((arg0: string) => (null | string)) | any);
-    fileImageUri: (((arg0: File) => (string)) | any);
-    filePathUri: (((arg0: string) => (null | string)) | any);
-    flush: flush;
-    Icons: {
-        vid: string;
-        zip: string;
-        att: string;
-        aud: string;
-        img: string;
-        exe: string;
-        ppt: string;
-        doc: string;
-        xls: string;
-    };
-    extSrc: (((arg0: any) => (string | null)) | any);
-    encodeSvg: ((arg0: string) => string);
-    svgToDataUri: ((arg0: string) => string);
-    getFileName: (((arg0: string) => (null | string)) | any);
-    formatBytes: (((arg0: number, arg1: number | undefined) => (string | string)) | any);
-    canPreview: (((arg0: string) => (boolean | any)) | any);
-};
+export namespace Files {
+    export { Ext };
+    export { Icons };
+    export { getExt };
+    export { extSrc };
+    export { encodeSvg };
+    export { canPreview };
+    export { svgToDataUri };
+    export { fileImageUri };
+    export { filePathUri };
+    export { formatBytes };
+    export { getFileName };
+    export { flush };
+}
+declare namespace Ext {
+    const img: string[];
+    const vid: string[];
+    const aud: string[];
+    const ppt: string[];
+    const xls: string[];
+    const doc: string[];
+    const zip: string[];
+    const exe: string[];
+    const att: string[];
+}
+declare namespace Icons {
+    const img_1: string;
+    export { img_1 as img };
+    const vid_1: string;
+    export { vid_1 as vid };
+    const aud_1: string;
+    export { aud_1 as aud };
+    const ppt_1: string;
+    export { ppt_1 as ppt };
+    const xls_1: string;
+    export { xls_1 as xls };
+    const doc_1: string;
+    export { doc_1 as doc };
+    const zip_1: string;
+    export { zip_1 as zip };
+    const exe_1: string;
+    export { exe_1 as exe };
+    const att_1: string;
+    export { att_1 as att };
+}
+/** @param {string} path */
+declare function getExt(path: string): any;
+declare function extSrc(ext: any): string;
+/** @param {string} s */
+declare function encodeSvg(s: string): string;
+/** @param {string} path */
+declare function canPreview(path: string): boolean;
+/** @param {string} svg */
+declare function svgToDataUri(svg: string): string;
+/** @param {File} file */
+declare function fileImageUri(file: File): any;
+/** @param {string} path */
+declare function filePathUri(path: string): any;
+/** @param {number} bytes
+ *  @param {number} [d=2] */
+declare function formatBytes(bytes: number, d?: number): string;
+/** @param {string} path */
+declare function getFileName(path: string): any;
+declare function flush(): void;
 
 /** @typedef {<T>(args:T) => T} Identity */
 /** @typedef {{
