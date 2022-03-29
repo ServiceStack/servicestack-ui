@@ -812,21 +812,33 @@ export function createDto(name: string, obj: any): any;
 /** @param {AppMetadata} app
  *  @param {string} appName */
 export function appApis(app: AppMetadata, appName: string): {
+    /** Global Cache */
     CACHE: {};
+    /**
+     * HTTP Errors specially handled by Locode
+     */
     HttpErrors: Record<number, string>;
+    /** Map of Request DTO names to `MetadataOperationType` */
     OpsMap: Record<string, MetadataOperationType>;
+    /** Map of DTO names to `MetadataType` */
     TypesMap: Record<string, MetadataType>;
+    /** Map of DTO namespace + names to `MetadataType` */
     FullTypesMap: Record<string, MetadataType>;
+    /** Find `MetadataOperationType` by API name  */
     getOp: (opName: string) => MetadataOperationType;
+    /** Find `MetadataType` by DTO name  */
     getType: (typeRef: {
         namespace: string | null;
         name: string;
     } | string) => MetadataType;
+    /** Check whether a Type is an Enum  */
     isEnum: (type: string) => boolean;
+    /** Get Enum Values of an Enum Type  */
     enumValues: (type: string) => {
         key: string;
         value: string;
     }[];
+    /** Get API Icon  */
     getIcon: ({ op, type }: {
         op: MetadataOperationType | null;
         type: MetadataType | null;
