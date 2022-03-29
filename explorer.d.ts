@@ -58,7 +58,10 @@ export let routes: UiRoutes & UiRoutesExtend & {
     to: ((arg0: any) => void);
     href: ((arg0: any) => string);
 };
-/** @type {{
+/**
+ * App's primary reactive store maintaining global functionality for API Explorer
+ * @remarks
+ * @type {{
     cachedFetch: (url:string) => Promise<string>,
     copied: boolean,
     readonly opTabs: {[p: string]: string},

@@ -44,6 +44,8 @@ export let routes: AdminRoutes & {
     href: ((arg0: any) => string);
 };
 /**
+ * App's primary reactive store maintaining global functionality for Admin UI
+ * @remarks
  * @type {{
     adminLink(string): LinkInfo,
     init(): void,
