@@ -30,27 +30,7 @@ export let sideNav: {
     operations: MetadataOperationType[];
     tag: string;
 }[];
-export let CACHE: {};
-export let HttpErrors: Record<number, string>;
-export let OpsMap: Record<string, MetadataOperationType>;
-export let TypesMap: Record<string, MetadataType>;
-export let FullTypesMap: Record<string, MetadataType>;
-export let getOp: (opName: string) => MetadataOperationType;
-export let getType: (typeRef: string | {
-    namespace?: string;
-    name: string;
-}) => MetadataType;
-export let isEnum: (type: string) => boolean;
-export let enumValues: (type: string) => {
-    key: string;
-    value: string;
-}[];
-export let getIcon: (args: {
-    op?: MetadataOperationType;
-    type?: MetadataType;
-}) => {
-    svg: string;
-};
+export let Meta: any;
 
 /**
  * Create a new state for an API that encapsulates its invocation and execution
@@ -93,22 +73,22 @@ export function apiState(op: MetadataOperationType): {
 /**
  * All CRUD API States available for this operation
  * @typedef {{
-    opQuery: MetadataOperationType|null,
-    opCreate: MetadataOperationType|null,
-    opPatch: MetadataOperationType|null,
-    opUpdate: MetadataOperationType|null,
-    opDelete: MetadataOperationType|null,
-    apiQuery: ApiState|null,
-    apiCreate: ApiState|null,
-    apiPatch: ApiState|null,
-    apiUpdate: ApiState|null,
-    apiDelete: ApiState|null
-}} State
+ * opQuery: MetadataOperationType|null,
+ *     opCreate: MetadataOperationType|null,
+ *     opPatch: MetadataOperationType|null,
+ *     opUpdate: MetadataOperationType|null,
+ *     opDelete: MetadataOperationType|null,
+ *     apiQuery: ApiState|null,
+ *     apiCreate: ApiState|null,
+ *     apiPatch: ApiState|null,
+ *     apiUpdate: ApiState|null,
+ *     apiDelete: ApiState|null
+ * }} State
  */
 /**
+ * Return all CRUD API States available for this operation
  * @param {string} opName
  * @return {State}
- * @internal
  */
 export function createState(opName: string): State;
 /**
@@ -147,20 +127,20 @@ export let routes: LocodeRoutes & LocodeRoutesExtend & {
  * Manage users query & filter preferences in the Users browsers localStorage
  * @remarks
  * @type {{
-    op: (op:string) => any,
-    lookup: (op:string) => any,
-    saveOp: (op:string, fn:Function) => void,
-    hasPrefs: (op:string) => boolean,
-    saveOpProp: (op:string, name:string, fn:Function)=> void,
-    saveLookup: (op:string, fn:Function) => void,
-    events: {
-        op: (op:string) => string,
-        lookup: (op:string) => string,
-        opProp: (op:string, name:string) => string
-    },
-    opProp: (op:string, name:string) => any,
-    clearPrefs: (op:string) => void }}
- *
+ *     op: (op:string) => any,
+ *     lookup: (op:string) => any,
+ *     saveOp: (op:string, fn:Function) => void,
+ *     hasPrefs: (op:string) => boolean,
+ *     saveOpProp: (op:string, name:string, fn:Function)=> void,
+ *     saveLookup: (op:string, fn:Function) => void,
+ *     events: {
+ *         op: (op:string) => string,
+ *         lookup: (op:string) => string,
+ *         opProp: (op:string, name:string) => string
+ *     },
+ *     opProp: (op:string, name:string) => any,
+ *     clearPrefs: (op:string) => void
+ * }}
  */
 export let settings: {
     op: (op: string) => any;
@@ -181,38 +161,39 @@ export let settings: {
  * App's primary reactive store maintaining global functionality for Locode Apps
  * @remarks
  * @type {{
-    cachedFetch: (url:string) => Promise<string>,
-    copied: boolean,
-    sideNav: {expanded: boolean, operations: MetadataOperationType[], tag: string}[],
-    auth: AuthenticateResponse,
-    readonly displayName: string|null,
-    login: (args:any, $on?:Function) => void,
-    detailSrcResult: any,
-    logout: () => void,
-    readonly isServiceStackType: boolean,
-    readonly opViewModel: string,
-    api: ApiResult<AuthenticateResponse>,
-    modalLookup: any|null,
-    init: () => void,
-    readonly op: MetadataOperationType,
-    debug: boolean,
-    readonly filteredSideNav: {tag: string, operations: MetadataOperationType[], expanded: boolean}[],
-    readonly authProfileUrl: string|null,
-    previewResult: string|null,
-    readonly opDesc: string,
-    toggle: (tag:string) => void,
-    readonly opDataModel: string,
-    readonly authRoles: string[],
-    filter: string,
-    baseUrl: string,
-    readonly authLinks: LinkInfo[],
-    readonly opName: string,
-    SignIn: (opt:any) => Function,
-    hasRole: (role:string) => boolean,
-    readonly authPermissions: string[],
-    readonly useLang: string,
-    invalidAccess: () => string|null
-}} */
+ *     cachedFetch: (url:string) => Promise<string>,
+ *     copied: boolean,
+ *     sideNav: {expanded: boolean, operations: MetadataOperationType[], tag: string}[],
+ *     auth: AuthenticateResponse,
+ *     readonly displayName: string|null,
+ *     login: (args:any, $on?:Function) => void,
+ *     detailSrcResult: any,
+ *     logout: () => void,
+ *     readonly isServiceStackType: boolean,
+ *     readonly opViewModel: string,
+ *     api: ApiResult<AuthenticateResponse>,
+ *     modalLookup: any|null,
+ *     init: () => void,
+ *     readonly op: MetadataOperationType,
+ *     debug: boolean,
+ *     readonly filteredSideNav: {tag: string, operations: MetadataOperationType[], expanded: boolean}[],
+ *     readonly authProfileUrl: string|null,
+ *     previewResult: string|null,
+ *     readonly opDesc: string,
+ *     toggle: (tag:string) => void,
+ *     readonly opDataModel: string,
+ *     readonly authRoles: string[],
+ *     filter: string,
+ *     baseUrl: string,
+ *     readonly authLinks: LinkInfo[],
+ *     readonly opName: string,
+ *     SignIn: (opt:any) => Function,
+ *     hasRole: (role:string) => boolean,
+ *     readonly authPermissions: string[],
+ *     readonly useLang: string,
+ *     invalidAccess: () => string|null
+ * }}
+ */
 export let store: {
     cachedFetch: (url: string) => Promise<string>;
     copied: boolean;

@@ -828,49 +828,6 @@ export function createRequest(op: MetadataOperationType, args: any | null): any;
  * @param {string} name
  * @param {*} obj */
 export function createDto(name: string, obj: any): any;
-/**
- * Useful generic collections around Metadata APIs
- * @param app
- * @param appName
- * @return {{OpsMap: Record<string, MetadataOperationType>, HttpErrors: Record<number, string>, FullTypesMap: Record<string, MetadataType>, TypesMap: Record<string, MetadataType>, CACHE: {}}}
- */
-export function appObjects(app: any, appName: any): {
-    OpsMap: Record<string, MetadataOperationType>;
-    HttpErrors: Record<number, string>;
-    FullTypesMap: Record<string, MetadataType>;
-    TypesMap: Record<string, MetadataType>;
-    CACHE: {};
-};
-/**
- * Generic functionality around AppMetadata
- * @param {AppMetadata} app
- * @param {string} appName
- * @return {{
-    getType: (typeRef:({namespace?: string, name: string})|string) => null|MetadataType,
-    isEnum: (type:string) => boolean,
-    getOp: (opName:string) => MetadataOperationType,
-    enumValues: (type:string) => {key: string, value: string}[],
-    getIcon: (args:{op?: MetadataOperationType, type?: MetadataType}) => {svg:string}
-}}
- */
-export function appApis(app: AppMetadata, appName: string): {
-    getType: (typeRef: ({
-        namespace?: string;
-        name: string;
-    }) | string) => null | MetadataType;
-    isEnum: (type: string) => boolean;
-    getOp: (opName: string) => MetadataOperationType;
-    enumValues: (type: string) => {
-        key: string;
-        value: string;
-    }[];
-    getIcon: (args: {
-        op?: MetadataOperationType;
-        type?: MetadataType;
-    }) => {
-        svg: string;
-    };
-};
 /** Check if array is not null or empty
  * @param {any[]|null} arr */
 export function hasItems(arr: any[] | null): boolean;
@@ -1059,28 +1016,28 @@ declare function flush(): void;
 
 /** @typedef {<T>(args:T) => T} Identity */
 /** @typedef {{
-    events: {
-        subscribe: function(string, Function): { unsubscribe: function():void },
-        publish: function(string, any): void
-    };
-    readonly petite: any;    components: function(Object.<string,Function>): void;
-    component: function(string, any): void;
-    template: function(string, string): void;
-    templates: function(Object.<string,string>): void;
-    directive: function(string, Function): void;
-    prop: function(string, any): void;
-    props: function(Object.<string,any>): void;
-    build: function(Object.<string,any>): any;
-    plugin: function(Object.<string,any>): void;
-    import: function(string): Promise<any>;
-    onStart: function(Function): void;
-    start: function(): void;
-    unsubscribe: function(): void;
-    createApp: function(any): any;
-    nextTick: function(Function): void;
-    reactive: Identity;
-}} App
-*/
+ *     events: {
+ *         subscribe: function(string, Function): { unsubscribe: function():void },
+ *         publish: function(string, any): void
+ *     };
+ *     readonly petite: any;    components: function(Object.<string,Function>): void;
+ *     component: function(string, any): void;
+ *     template: function(string, string): void;
+ *     templates: function(Object.<string,string>): void;
+ *     directive: function(string, Function): void;
+ *     prop: function(string, any): void;
+ *     props: function(Object.<string,any>): void;
+ *     build: function(Object.<string,any>): any;
+ *     plugin: function(Object.<string,any>): void;
+ *     import: function(string): Promise<any>;
+ *     onStart: function(Function): void;
+ *     start: function(): void;
+ *     unsubscribe: function(): void;
+ *     createApp: function(any): any;
+ *     nextTick: function(Function): void;
+ *     reactive: Identity;
+ * }} App
+ */
 /** App to register and build a PetiteVueApp
  * @param {{createApp:(initialData?:any) => any,nextTick:(fn:Function) => void,reactive:Identity}} PetiteVue
  * @returns {App}
@@ -1128,90 +1085,134 @@ export type App = {
 };
 
 /** @typedef {{
-    getId: (type: MetadataType, row: any) => any;
-    getType: (typeRef: string | {
-        namespace: string;
-        name: string;
-    }) => MetadataType;
-    inputId: (input: any) => any;
-    colClass: (fields: any) => string;
-    inputProp: (prop: any) => {
-        id: any;
-        type: any;
-        'data-type': any;
-    };
-    getPrimaryKey: (type: MetadataType) => any;
-    typeProperties: (type: MetadataType) => MetadataPropertyType[];
-    relativeTime: (val: string | number | Date, rtf?: Intl.RelativeTimeFormat) => string;
-    relativeTimeFromMs: (elapsedMs: number, rtf?: Intl.RelativeTimeFormat) => string;
-    relativeTimeFromDate: (d: Date, from?: Date) => string;
-    Lookup: {};
-    lookupLabel: (model: any, id: any, label: string) => any;
-    refInfo: (row: any, prop: MetadataPropertyType, props: MetadataPropertyType[]) => {
-        href: {
-            op: string;
-            skip: any;
-            edit: any;
-            new: any;
-            $qs: {
-                [x: string]: any;
-            };
-        };
-        icon: any;
-        html: any;
-    };
-    fetchLookupValues: (results: any[], props: MetadataPropertyType[], refreshFn: () => void) => void;
-    theme: ThemeInfo;
-    formClass: string;
-    gridClass: string;
-    opTitle(op: MetadataOperationType): any;
-    forAutoForm(type: MetadataType): (field: any) => void;
-    forCreate(type: MetadataType): (field: any) => void;
-    forEdit(type: MetadataType): (field: any) => void;
-    getFormProp(id: any, type: any): MetadataPropertyType;
-    getGridInputs(formLayout: InputInfo[], f?: (args: {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    }) => void): {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    }[];
-    getGridInput(input: InputInfo, f?: (args: {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    }) => void): {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    };
-    getFieldError(error: any, id: any): any;
-    kvpValues(input: any): any;
-    useLabel(input: any): any;
-    usePlaceholder(input: any): any;
-    isRequired(input: any): any;
-    resolveFormLayout(op: MetadataOperationType): InputInfo[];
-    formValues(form: any): {};
-    formData(form: any, op: MetadataOperationType): any;
-    groupTypes(allTypes: any): any[];
-    complexProp(prop: any): boolean;
-    supportsProp(prop: any): boolean;
-    populateModel(model: any, formLayout: any): any;
-    apiValue(o: any): any;
-    format(o: any, prop: MetadataPropertyType): any;
-}} Forms */
-/** @param {{[op:string]:MetadataOperationType}} OpsMap
- *  @param {{[op:string]:MetadataType}} TypesMap
+ * getId: (type: MetadataType, row: any) => any;
+ *     getType: (typeRef: string | {
+ *         namespace: string;
+ *         name: string;
+ *     }) => MetadataType;
+ *     inputId: (input: any) => any;
+ *     colClass: (fields: any) => string;
+ *     inputProp: (prop: any) => {
+ *         id: any;
+ *         type: any;
+ *         'data-type': any;
+ *     };
+ *     getPrimaryKey: (type: MetadataType) => any;
+ *     typeProperties: (type: MetadataType) => MetadataPropertyType[];
+ *     relativeTime: (val: string | number | Date, rtf?: Intl.RelativeTimeFormat) => string;
+ *     relativeTimeFromMs: (elapsedMs: number, rtf?: Intl.RelativeTimeFormat) => string;
+ *     relativeTimeFromDate: (d: Date, from?: Date) => string;
+ *     Lookup: {};
+ *     lookupLabel: (model: any, id: any, label: string) => any;
+ *     refInfo: (row: any, prop: MetadataPropertyType, props: MetadataPropertyType[]) => {
+ *         href: {
+ *             op: string;
+ *             skip: any;
+ *             edit: any;
+ *             new: any;
+ *             $qs: {
+ *                 [x: string]: any;
+ *             };
+ *         };
+ *         icon: any;
+ *         html: any;
+ *     };
+ *     fetchLookupValues: (results: any[], props: MetadataPropertyType[], refreshFn: () => void) => void;
+ *     theme: ThemeInfo;
+ *     formClass: string;
+ *     gridClass: string;
+ *     opTitle(op: MetadataOperationType): any;
+ *     forAutoForm(type: MetadataType): (field: any) => void;
+ *     forCreate(type: MetadataType): (field: any) => void;
+ *     forEdit(type: MetadataType): (field: any) => void;
+ *     getFormProp(id: any, type: any): MetadataPropertyType;
+ *     getGridInputs(formLayout: InputInfo[], f?: (args: {
+ *         id: any;
+ *         input: InputInfo;
+ *         rowClass: string;
+ *     }) => void): {
+ *         id: any;
+ *         input: InputInfo;
+ *         rowClass: string;
+ *     }[];
+ *     getGridInput(input: InputInfo, f?: (args: {
+ *         id: any;
+ *         input: InputInfo;
+ *         rowClass: string;
+ *     }) => void): {
+ *         id: any;
+ *         input: InputInfo;
+ *         rowClass: string;
+ *     };
+ *     getFieldError(error: any, id: any): any;
+ *     kvpValues(input: any): any;
+ *     useLabel(input: any): any;
+ *     usePlaceholder(input: any): any;
+ *     isRequired(input: any): any;
+ *     resolveFormLayout(op: MetadataOperationType): InputInfo[];
+ *     formValues(form: any): {};
+ *     formData(form: any, op: MetadataOperationType): any;
+ *     groupTypes(allTypes: any): any[];
+ *     complexProp(prop: any): boolean;
+ *     supportsProp(prop: any): boolean;
+ *     populateModel(model: any, formLayout: any): any;
+ *     apiValue(o: any): any;
+ *     format(o: any, prop: MetadataPropertyType): any;
+ * }} Forms
+ */
+/** @param {Meta} Meta
  *  @param {ApiCss} css
  *  @param {UiInfo} ui
  *  @return Forms */
-export function createForms(OpsMap: {
-    [op: string]: MetadataOperationType;
-}, TypesMap: {
-    [op: string]: MetadataType;
-}, css: ApiCss, ui: UiInfo): Forms;
+export function createForms(Meta: Meta, css: ApiCss, ui: UiInfo): Forms;
+/**
+ * Useful generic collections around Metadata APIs
+ * @param app
+ * @param appName
+ */
+export function appObjects(app: any, appName: any): {
+    /** Global Cache */
+    CACHE: {};
+    /** HTTP Errors specially handled by Locode */
+    HttpErrors: Record<number, string>;
+    /** Map of Request DTO names to `MetadataOperationType` */
+    OpsMap: Record<string, MetadataOperationType>;
+    /** Map of DTO names to `MetadataType` */
+    TypesMap: Record<string, MetadataType>;
+    /** Map of DTO namespace + names to `MetadataType` */
+    FullTypesMap: Record<string, MetadataType>;
+};
+/** Generic functionality around AppMetadata
+ * @typedef {ReturnType<createMeta>} Meta
+ */
+/**
+ * Generic functionality around AppMetadata
+ * @param {AppMetadata} app
+ * @param {string} appName
+ */
+export function createMeta(app: AppMetadata, appName: string): {
+    CACHE: {};
+    HttpErrors: Record<number, string>;
+    OpsMap: Record<string, MetadataOperationType>;
+    TypesMap: Record<string, MetadataType>;
+    FullTypesMap: Record<string, MetadataType>;
+    getOp: (opName: string) => MetadataOperationType;
+    getType: (typeRef: {
+        namespace: string | null;
+        name: string;
+    } | string) => MetadataType;
+    isEnum: (type: string) => boolean;
+    enumValues: (type: string) => {
+        key: string;
+        value: string;
+    }[];
+    getIcon: ({ op, type }: {
+        op: MetadataOperationType | null;
+        type: MetadataType | null;
+    }) => {
+        svg: string;
+    };
+};
 export type Forms = {
     getId: (type: MetadataType, row: any) => any;
     getType: (typeRef: string | {
@@ -1287,6 +1288,10 @@ export type Forms = {
     apiValue(o: any): any;
     format(o: any, prop: MetadataPropertyType): any;
 };
+/**
+ * Generic functionality around AppMetadata
+ */
+export type Meta = ReturnType<typeof createMeta>;
 
 export namespace Types {
     export { alias };

@@ -1,27 +1,7 @@
 import { ApiResult, JsonServiceClient } from './client'
 import { App, Forms, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, Breakpoints, AuthenticateResponse, AdminUsersInfo } from './shared'
 
-export let CACHE: {};
-export let HttpErrors: Record<number, string>;
-export let OpsMap: Record<string, MetadataOperationType>;
-export let TypesMap: Record<string, MetadataType>;
-export let FullTypesMap: Record<string, MetadataType>;
-export let getOp: (opName: string) => MetadataOperationType;
-export let getType: (typeRef: string | {
-    namespace?: string;
-    name: string;
-}) => MetadataType;
-export let isEnum: (type: string) => boolean;
-export let enumValues: (type: string) => {
-    key: string;
-    value: string;
-}[];
-export let getIcon: (args: {
-    op?: MetadataOperationType;
-    type?: MetadataType;
-}) => {
-    svg: string;
-};
+export let Meta: any;
 
 /**
  * Execute tailwindui.com transition definition rules
@@ -47,28 +27,28 @@ export let routes: AdminRoutes & {
  * App's primary reactive store maintaining global functionality for Admin UI
  * @remarks
  * @type {{
-    adminLink(string): LinkInfo,
-    init(): void,
-    cachedFetch(string): Promise<unknown>,
-    debug: boolean,
-    copied: boolean,
-    auth: AuthenticateResponse|null,
-    readonly authProfileUrl: string|null,
-    readonly displayName: null,
-    readonly link: LinkInfo,
-    readonly isAdmin: boolean,
-    login(any): void,
-    readonly adminUsers: AdminUsersInfo,
-    readonly authRoles: string[],
-    filter: string,
-    baseUrl: string,
-    logout(): void,
-    readonly authLinks: LinkInfo[],
-    SignIn(): Function,
-    readonly adminLinks: LinkInfo[],
-    api: ApiResult<AuthenticateResponse>|null,
-    readonly authPermissions: *
-    }}
+ *     adminLink(string): LinkInfo,
+ *     init(): void,
+ *     cachedFetch(string): Promise<unknown>,
+ *     debug: boolean,
+ *     copied: boolean,
+ *     auth: AuthenticateResponse|null,
+ *     readonly authProfileUrl: string|null,
+ *     readonly displayName: null,
+ *     readonly link: LinkInfo,
+ *     readonly isAdmin: boolean,
+ *     login(any): void,
+ *     readonly adminUsers: AdminUsersInfo,
+ *     readonly authRoles: string[],
+ *     filter: string,
+ *     baseUrl: string,
+ *     logout(): void,
+ *     readonly authLinks: LinkInfo[],
+ *     SignIn(): Function,
+ *     readonly adminLinks: LinkInfo[],
+ *     api: ApiResult<AuthenticateResponse>|null,
+ *     readonly authPermissions: *
+ * }}
  */
 export let store: {
     adminLink(string: any): LinkInfo;
