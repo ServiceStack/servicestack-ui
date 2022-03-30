@@ -1,6 +1,6 @@
 {
   "name": "@servicestack/ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "TypeScript Definitions for ServiceStack built-in UI's",
   "homepage": "https://github.com/ServiceStack/servicestack-ui",
   "types": "index.d.ts",
