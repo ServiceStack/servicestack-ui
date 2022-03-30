@@ -32,8 +32,8 @@ export let Forms:Forms;
 /**
  * Create a new state for an API that encapsulates its invocation and execution
  * @param {MetadataOperationType} op
- * @return {ApiState} */
-export function apiState(op: MetadataOperationType): ApiState;
+ * @return {ApiState|null} */
+export function apiState(op: MetadataOperationType): ApiState | null;
 /**
  * Return all CRUD API States available for this operation
  * @param {string} opName

@@ -809,7 +809,7 @@ export declare type App = {
     /** PetiteVue App instance */
     readonly petite: any;
     /** Register map of PetiteVue components using key as Components Name */
-    components: (components: Record<string, Function>) => void;
+    components: (components: Record<string, Function | Object>) => void;
     /** Register single component
      * @param {string} name
      * @param {string|Function} component Auto Component template HTML or Component Function */
@@ -838,7 +838,7 @@ export declare type App = {
     unsubscribe: () => void;
     /** PetiteVue.createApp - create PetiteVue instance */
     createApp: (args: any) => any;
-    /** PetiteVue.nextTick - register callback to be fired after next async loop */
+    /** PetiteVue.nextTick - register callback to be fired afterA next async loop */
     nextTick: (f: Function) => void;
     /** PetiteVue.reactive - create a reactive store */
     reactive: Identity;
@@ -850,14 +850,16 @@ export declare type Forms = {
         namespace: string;
         name: string;
     }) => MetadataType;
-    inputId: (input: any) => any;
-    colClass: (fields: any) => string;
-    inputProp: (prop: any) => {
-        id: any;
-        type: any;
-        'data-type': any;
+    inputId: (input: {
+        id: string;
+    }) => string;
+    colClass: (fields: number) => string;
+    inputProp: (prop: MetadataPropertyType) => {
+        id: string;
+        type: string;
+        'data-type': string;
     };
-    getPrimaryKey: (type: MetadataType) => any;
+    getPrimaryKey: (type: MetadataType) => MetadataPropertyType | null;
     typeProperties: (type: MetadataType) => MetadataPropertyType[];
     relativeTime: (val: string | number | Date, rtf?: Intl.RelativeTimeFormat) => string;
     relativeTimeFromMs: (elapsedMs: number, rtf?: Intl.RelativeTimeFormat) => string;
@@ -881,41 +883,44 @@ export declare type Forms = {
     theme: ThemeInfo;
     formClass: string;
     gridClass: string;
-    opTitle(op: MetadataOperationType): any;
+    opTitle(op: MetadataOperationType): string;
     forAutoForm(type: MetadataType): (field: any) => void;
     forCreate(type: MetadataType): (field: any) => void;
     forEdit(type: MetadataType): (field: any) => void;
     getFormProp(id: any, type: any): MetadataPropertyType;
     getGridInputs(formLayout: InputInfo[], f?: (args: {
-        id: any;
+        id: string;
         input: InputInfo;
         rowClass: string;
     }) => void): {
-        id: any;
+        id: string;
         input: InputInfo;
         rowClass: string;
     }[];
     getGridInput(input: InputInfo, f?: (args: {
-        id: any;
+        id: string;
         input: InputInfo;
         rowClass: string;
     }) => void): {
-        id: any;
+        id: string;
         input: InputInfo;
         rowClass: string;
     };
-    getFieldError(error: any, id: any): any;
-    kvpValues(input: any): any;
-    useLabel(input: any): any;
-    usePlaceholder(input: any): any;
-    isRequired(input: any): any;
+    getFieldError(error: any, id: any): string | null;
+    kvpValues(input: any): {
+        key: any;
+        value: any;
+    }[];
+    useLabel(input: any): string | null;
+    usePlaceholder(input: any): string | null;
+    isRequired(input: any): boolean;
     resolveFormLayout(op: MetadataOperationType): InputInfo[];
-    formValues(form: any): {};
-    formData(form: any, op: MetadataOperationType): any;
+    formValues(form: any): Record<string, any>;
+    formData(form: any, op: MetadataOperationType): FormData;
     groupTypes(allTypes: any): any[];
     complexProp(prop: any): boolean;
     supportsProp(prop: any): boolean;
-    populateModel(model: any, formLayout: any): any;
+    populateModel(model: any, formLayout: any): Record<string, any>;
     apiValue(o: any): any;
     format(o: any, prop: MetadataPropertyType): any;
 };
@@ -1207,7 +1212,7 @@ export declare type ApiState = {
     readonly api: any;
     createRequest: (args: any) => any;
     model: any;
-    title: any;
+    title: string | null;
     readonly error: ResponseStatus;
     readonly errorSummary: string | null;
     fieldError(id: string): string | null;
@@ -1231,6 +1236,16 @@ export declare type CrudApisState = {
     apiPatch: ApiState | null;
     apiUpdate: ApiState | null;
     apiDelete: ApiState | null;
+};
+export declare type CrudApisStateProp = CrudApisState & {
+    prop: MetadataPropertyType;
+    opName: string;
+    dataModel: MetadataType;
+    viewModel: MetadataType;
+    viewModelColumns: MetadataPropertyType[];
+    callback: Function;
+    createPrefs: () => any;
+    selectedColumns: (prefs: any) => MetadataPropertyType[];
 };
 /** Method arguments of custom Create Form Components */
 export interface CreateComponentArgs {
@@ -1294,12 +1309,12 @@ export declare type AdminStore = {
  * @example
  * let a = b()?.c // equivalent to:
  * let a = map(b(), x => x.c)
- * @template {Object} T
- * @template {Object} V
+ * @template T,V
  * @param {T} o
- * @param {(o:T) => V} f
+ * @param {(T) => V} f
+ * @return {V|null}
  */
-export function map<T extends unknown, V extends unknown>(o: T, f: (o: T) => V): V;
+export function map<T, V>(o: T, f: (T: any) => V): V;
 /** Set class on document.body if truthy otherwise set `no{class}`
  * @param {{[key:string]:string|any}} obj */
 export function setBodyClass(obj: {
