@@ -21,6 +21,7 @@ jobs:
       - name: Install and build
         run: |
           npm install
+          npm install -g typedoc
           npm install -g @microsoft/api-extractor
           npm install -g @microsoft/api-documenter
           npm run typedoc:build

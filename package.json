@@ -8,7 +8,7 @@
     "typecheck": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "git push && git push --tags",
-    "typedoc:build": "typedoc --theme gitlab-wiki",
+    "typedoc:build": "typedoc",
     "docs:clean": "sed -i '/^export declare var /d;/^export.*import(/d' ./*.d.ts",
     "docs:build": "api-extractor run --local --verbose && api-documenter markdown -i temp -o docs && node -e \"require('child_process').execSync(('cp '+path.join('config','custom','*')+' docs').replace(/^cp/,path.sep!='/'?'copy':'cp'))\""
   },
@@ -27,10 +27,5 @@
     "url": "https://github.com/ServiceStack/Issues"
   },
   "author": "ServiceStack, Inc. (https://servicestack.net)",
-  "license": "BSD-3-Clause",
-  "devDependencies": {
-    "typedoc": "^0.22.13",
-    "typedoc-gitlab-wiki-theme": "^1.0.0",
-    "typedoc-plugin-markdown": "^3.11.14"
-  }
+  "license": "BSD-3-Clause"
 }
