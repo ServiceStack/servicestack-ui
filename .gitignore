@@ -4,6 +4,8 @@ docs/
 etc/
 temp/
 tsdoc-metadata.json
+#typedoc
+typedoc/
 
 
 # Logs

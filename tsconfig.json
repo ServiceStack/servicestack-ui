@@ -28,5 +28,9 @@
         // go to js file when using IDE functions like
         // "Go to Definition" in VSCode
         "declarationMap": false
+    },
+    "typedocOptions": {
+        "entryPoints": ["client.d.ts","shared.d.ts","locode.d.ts","explorer.d.ts","admin.d.ts"],
+        "out": "typedoc"
     }
 }

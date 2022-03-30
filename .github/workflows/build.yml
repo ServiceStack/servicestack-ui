@@ -23,10 +23,12 @@ jobs:
           npm install
           npm install -g @microsoft/api-extractor
           npm install -g @microsoft/api-documenter
+          npm run typedoc:build
           npm run docs:clean
           npm run docs:build
       - name: Deploy to GitHub Pages
         run: |
+          mv typedoc docs
           cd docs
           git init
           git add -A
