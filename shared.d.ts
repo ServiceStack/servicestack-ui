@@ -780,7 +780,7 @@ export declare class GetCrudEvents extends QueryDb<CrudEvent> implements IReturn
     getMethod(): string;
     createResponse(): QueryResponse<CrudEvent>;
 }
-export declare var APP: AppMetadata;
+export declare let APP: AppMetadata;
 
 /**
  * Alt solution to optional chaining by only executing fn accessor if object is not null
@@ -1182,37 +1182,30 @@ export function appObjects(app: any, appName: any): {
     /** Map of DTO namespace + names to `MetadataType` */
     FullTypesMap: Record<string, MetadataType>;
 };
-/** Generic functionality around AppMetadata
- * @typedef {ReturnType<createMeta>} Meta
+/**
+ * Generic functionality around AppMetadata
+ * @remarks
+ * @typedef {{
+ *     CACHE: {},
+ *     HttpErrors: Record<number, string>,
+ *     OpsMap: Record<string, MetadataOperationType>,
+ *     TypesMap: Record<string, MetadataType>,
+ *     FullTypesMap: Record<string, MetadataType>,
+ *     getOp: (opName: string) => MetadataOperationType,
+ *     getType: (typeRef: ({ namespace?: string; name: string; } | string)) => null | MetadataType,
+ *     isEnum: (type: string) => boolean,
+ *     enumValues: (type: string) => {key:string,value:string}[],
+ *     getIcon: (args:({op?: MetadataOperationType, type?: MetadataType})) => {svg: string}
+ * }} Meta
  */
 /**
  * Generic functionality around AppMetadata
+ * @remarks
  * @param {AppMetadata} app
  * @param {string} appName
+ * @return {Meta}
  */
-export function createMeta(app: AppMetadata, appName: string): {
-    CACHE: {};
-    HttpErrors: Record<number, string>;
-    OpsMap: Record<string, MetadataOperationType>;
-    TypesMap: Record<string, MetadataType>;
-    FullTypesMap: Record<string, MetadataType>;
-    getOp: (opName: string) => MetadataOperationType;
-    getType: (typeRef: {
-        namespace: string | null;
-        name: string;
-    } | string) => MetadataType;
-    isEnum: (type: string) => boolean;
-    enumValues: (type: string) => {
-        key: string;
-        value: string;
-    }[];
-    getIcon: ({ op, type }: {
-        op: MetadataOperationType | null;
-        type: MetadataType | null;
-    }) => {
-        svg: string;
-    };
-};
+export function createMeta(app: AppMetadata, appName: string): Meta;
 export type Forms = {
     getId: (type: MetadataType, row: any) => any;
     getType: (typeRef: string | {
@@ -1291,7 +1284,29 @@ export type Forms = {
 /**
  * Generic functionality around AppMetadata
  */
-export type Meta = ReturnType<typeof createMeta>;
+export type Meta = {
+    CACHE: {};
+    HttpErrors: Record<number, string>;
+    OpsMap: Record<string, MetadataOperationType>;
+    TypesMap: Record<string, MetadataType>;
+    FullTypesMap: Record<string, MetadataType>;
+    getOp: (opName: string) => MetadataOperationType;
+    getType: (typeRef: ({
+        namespace?: string;
+        name: string;
+    } | string)) => null | MetadataType;
+    isEnum: (type: string) => boolean;
+    enumValues: (type: string) => {
+        key: string;
+        value: string;
+    }[];
+    getIcon: (args: ({
+        op?: MetadataOperationType;
+        type?: MetadataType;
+    })) => {
+        svg: string;
+    };
+};
 
 export namespace Types {
     export { alias };

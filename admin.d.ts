@@ -1,7 +1,8 @@
 import { ApiResult, JsonServiceClient } from './client'
-import { App, Forms, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, Breakpoints, AuthenticateResponse, AdminUsersInfo } from './shared'
+import { App, Meta, Forms, Breakpoints, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, AuthenticateResponse, AdminUsersInfo } from './shared'
 
-export let Meta: any;
+export let Meta:Meta;
+export let Forms:Forms;
 
 /**
  * Execute tailwindui.com transition definition rules
@@ -86,5 +87,4 @@ export type AdminRoutes = {
     edit?: string;
 };
 
-export declare var App:App
-export declare var Forms:Forms
+export let App:App;

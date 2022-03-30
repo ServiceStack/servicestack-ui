@@ -1,5 +1,5 @@
 import { ApiResult, JsonServiceClient } from './client'
-import { App, Forms, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, Breakpoints, AuthenticateResponse, AdminUsersInfo } from './shared'
+import { App, Meta, Forms, Breakpoints, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, AuthenticateResponse, AdminUsersInfo } from './shared'
 
 /**
  * Create a new `JsonServiceStack` client instance configured with the authenticated user
@@ -30,7 +30,8 @@ export let sideNav: {
     operations: MetadataOperationType[];
     tag: string;
 }[];
-export let Meta: any;
+export let Meta:Meta;
+export let Forms:Forms;
 
 /**
  * Create a new state for an API that encapsulates its invocation and execution
@@ -277,8 +278,7 @@ export type LocodeRoutesExtend = {
     uiHref(any: any): string;
 };
 
-export declare var App:App
-export declare var Forms:Forms
+export let App:App;
 /** Method arguments of custom Create Form Components */
 export interface CreateComponentArgs {
     store: typeof store;

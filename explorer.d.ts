@@ -1,5 +1,5 @@
 import { ApiResult, JsonServiceClient } from './client'
-import { App, Forms, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, Breakpoints, AuthenticateResponse, AdminUsersInfo } from './shared'
+import { App, Meta, Forms, Breakpoints, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, AuthenticateResponse, AdminUsersInfo } from './shared'
 
 export function createClient(fn: any): any;
 /** @type {{expanded: boolean, operations: MetadataOperationType[], tag: string}[]} */
@@ -8,7 +8,8 @@ export let sideNav: {
     operations: MetadataOperationType[];
     tag: string;
 }[];
-export let Meta: any;
+export let Meta:Meta;
+export let Forms:Forms;
 
 /**
  * Execute tailwindui.com transition definition rules
@@ -160,8 +161,7 @@ export type UiRoutesExtend = {
     queryHref(): string;
 };
 
-export declare var App:App
-export declare var Forms:Forms
+export let App:App;
 /** Method arguments of custom Doc Components */
 export interface DocComponentArgs {
     store: typeof store;
