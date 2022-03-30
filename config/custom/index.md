@@ -108,7 +108,7 @@ E.g. Here's Chinook's custom home page in [/modules/locode/components/Welcome.ht
 ```html
 <script>
 import { App, client } from "@servicestack/ui/locode"
-import { QueryInvoices } from "../../../../dtos"
+import { QueryInvoices } from "dtos"
 
 App.components({
     Welcome() {
@@ -116,17 +116,15 @@ App.components({
             $template: '#welcome-template',
             lastOrders: [],
             mounted() {
-                client.api(new QueryInvoices({ 
-                        orderBy: '-InvoiceId', 
-                        take: 5, 
-                        fields: 'InvoiceId,CustomerId,InvoiceDate,Total,BillingCountry,BillingCity' 
-                    }), 
-                    { jsconfig: 'edv' })
-                .then(api => {
-                    if (api.succeeded) {
-                        this.lastOrders = api.response.results
-                    }
-                })
+                client.api(new QueryInvoices({ orderBy:'-InvoiceId', 
+                    take:5, 
+                    fields:'InvoiceId,CustomerId,InvoiceDate,Total,BillingCountry,BillingCity' 
+                }), { jsconfig: 'edv' })
+                    .then(api => {
+                        if (api.succeeded) {
+                            this.lastOrders = api.response.results
+                        }
+                    })
             }
         }
     }
