@@ -1,0 +1,65 @@
+ul.tsd-parameters {
+    list-style: none;
+}
+.tsd-anchor-link, .tsd-parameters h5, .tsd-parameters-title, .tsd-returns-title {
+    font-weight: 500;
+}
+.tsd-parameters-title {
+    color: rgb(107 114 128);
+    text-transform: lowercase;
+}
+.tsd-returns-title {
+    color: rgb(192 38 211);
+    text-transform: lowercase;
+}
+.tsd-returns-title::before, .tsd-parameters-title::before {
+    content: "@";
+}
+.tsd-signature-type {
+    color: rgb(22 163 74);
+    font-style: normal;
+    text-transform: unset;
+}
+
+.tsd-comment .lead, .tsd-signature {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+}
+
+.tsd-anchor-link { display: none }
+
+.tsd-panel {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    padding-top: 0;
+}
+.tsd-signatures, .tsd-signature {
+    border-top: none;
+}
+.tsd-signatures {
+    margin-bottom: 0;
+    border-width: 0;
+    background-color: rgb(248 250 252);
+}
+
+.tsd-sources {
+    text-align: right;
+    text-transform: lowercase;
+    visibility: hidden;
+    margin: 0;
+}
+.tsd-sources a { 
+    visibility: visible;
+}
+.tsd-sources li {
+    margin: 0px 0 -20px 0;
+    padding-top: 10px;
+}
+.tsd-descriptions {
+    margin: 0;
+    padding: 0;
+}
+
+.tsd-flag {
+    background-color: rgb(148 163 184);
+    padding: 3px 5px;
+}
