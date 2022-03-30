@@ -1039,6 +1039,76 @@ export declare type ExplorerStore = {
     readonly useLang: string;
     invalidAccess: () => string | null;
 };
+/** APIs for resolving SVG icons and data URIs for different File Types */
+interface Files {
+    /** Get Icon SVG for .ext */
+    extSvg: (ext: string) => string | null;
+    /** Get Icon src for .ext */
+    extSrc: (ext: string) => string | null;
+    /** Return file extension (without '.; prefix) of path or URI */
+    getExt: (path: string) => string | null;
+    /** Encode SVG for embedding in Data URI */
+    encodeSvg: (s: string) => string;
+    /** Return whether path is a URI to a previewable image */
+    canPreview: (path: string) => boolean;
+    /** Return file name part of URI or file path */
+    getFileName: (path: string) => string | null;
+    /** Format bytes into human-readable file size */
+    formatBytes: (bytes: number, d?: number) => string;
+    /** Get the Icon src for a file path or URI, previewable resources will return self, otherwise returns SVG URI of .ext */
+    filePathUri: (path: string) => string | null;
+    /** Convert SVG to Data URI */
+    svgToDataUri: (svg: string) => string;
+    /** Return Image URI of INPUT file attachments */
+    fileImageUri: (file: File | MediaSource) => string;
+    /** Clear all remaining Image URIs of INPUT file attachments */
+    flush: () => void;
+}
+export declare let Files: Files;
+/** APIs to inspect .NET Types */
+interface Types {
+    /** Return well-known C# alias for its .NET Type name */
+    alias: (type: string) => any;
+    /** Return underlying Type if nullable */
+    unwrap: (type: string) => string;
+    /** Resolve well-known C# Type Name from Type Ref */
+    typeName: (metaType: {
+        name: string;
+        genericArgs: string[];
+    }) => string;
+    /** Resolve well-known C# Type Name from Name and Generic Args */
+    typeName2: (name: string, genericArgs: string[]) => string;
+    /** Return true if .NET Type is numeric */
+    isNumber: (type: string) => boolean;
+    /** Return true if .NET Type is a string */
+    isString: (type: string) => boolean;
+    /** Return true if .NET Type is a collection */
+    isArray: (type: string) => boolean;
+    /** Return true if typeof is a scalar value (string|number|symbol|bolean) */
+    isPrimitive: (type: string) => boolean;
+    /** Return value suitable for human display */
+    formatValue: (type: string, value: any) => any;
+    /** Create a unique key string from a Type Ref */
+    key: (typeRef: {
+        namespace: string;
+        name: string;
+    }) => string | null;
+    /** Return true if both Type Refs are equivalent */
+    equals: (a: {
+        namespace: string;
+        name: string;
+    }, b: {
+        namespace: string;
+        name: string;
+    }) => boolean;
+    /** Return true if Property has named Attribute */
+    propHasAttr: (p: MetadataPropertyType, attr: string) => boolean;
+    /** Return named property on Type (case-insensitive) */
+    getProp: (type: MetadataType, name: string) => MetadataPropertyType;
+    /** Return all properties of a Type, inc. base class properties  */
+    typeProperties: (TypesMap: any, type: any) => MetadataPropertyType[];
+}
+export declare let Types: Types;
 /** Custom route params used in Locode */
 export declare type LocodeRoutes = {
     op?: string;
@@ -1353,70 +1423,6 @@ export const Crud: {
 export function isAdminAuth(session?: {
     roles: string[];
 }): boolean;
-export namespace Files {
-    export { Ext };
-    export { Icons };
-    export { getExt };
-    export { extSrc };
-    export { encodeSvg };
-    export { canPreview };
-    export { svgToDataUri };
-    export { fileImageUri };
-    export { filePathUri };
-    export { formatBytes };
-    export { getFileName };
-    export { flush };
-}
-declare namespace Ext {
-    const img: string[];
-    const vid: string[];
-    const aud: string[];
-    const ppt: string[];
-    const xls: string[];
-    const doc: string[];
-    const zip: string[];
-    const exe: string[];
-    const att: string[];
-}
-declare namespace Icons {
-    const img_1: string;
-    export { img_1 as img };
-    const vid_1: string;
-    export { vid_1 as vid };
-    const aud_1: string;
-    export { aud_1 as aud };
-    const ppt_1: string;
-    export { ppt_1 as ppt };
-    const xls_1: string;
-    export { xls_1 as xls };
-    const doc_1: string;
-    export { doc_1 as doc };
-    const zip_1: string;
-    export { zip_1 as zip };
-    const exe_1: string;
-    export { exe_1 as exe };
-    const att_1: string;
-    export { att_1 as att };
-}
-/** @param {string} path */
-declare function getExt(path: string): any;
-declare function extSrc(ext: any): string;
-/** @param {string} s */
-declare function encodeSvg(s: string): string;
-/** @param {string} path */
-declare function canPreview(path: string): boolean;
-/** @param {string} svg */
-declare function svgToDataUri(svg: string): string;
-/** @param {File} file */
-declare function fileImageUri(file: File): any;
-/** @param {string} path */
-declare function filePathUri(path: string): any;
-/** @param {number} bytes
- *  @param {number} [d=2] */
-declare function formatBytes(bytes: number, d?: number): string;
-/** @param {string} path */
-declare function getFileName(path: string): any;
-declare function flush(): void;
 
 /** App to register and build a PetiteVueApp
  * @param {{createApp:(initialData?:any) => any,nextTick:(fn:Function) => void,reactive:Identity}} PetiteVue
@@ -1453,71 +1459,6 @@ export function appObjects(app: any, appName: any): {
  * @return {Meta}
  */
 export function createMeta(app: AppMetadata, appName: string): Meta;
-
-export namespace Types {
-    export { alias };
-    export { unwrap };
-    export { typeName2 };
-    export { isNumber };
-    export { isString };
-    export { isArray };
-    export { typeName };
-    export { formatValue };
-    export { key };
-    export { equals };
-    export { isPrimitive };
-    export { propHasAttr };
-    export { getProp };
-    export { typeProperties };
-}
-/** @param {string} type */
-declare function alias(type: string): any;
-/** @param {string} type */
-declare function unwrap(type: string): string;
-/** @param {string} name
- @param {string[]} genericArgs */
-declare function typeName2(name: string, genericArgs: string[]): any;
-/** @param {string} type */
-declare function isNumber(type: string): boolean;
-/** @param {string} type */
-declare function isString(type: string): boolean;
-/** @param {string} type */
-declare function isArray(type: string): boolean;
-/** @param {{name:string,genericArgs:string[]}} metaType */
-declare function typeName(metaType: {
-    name: string;
-    genericArgs: string[];
-}): any;
-/** @param {string} type
-    @param {*} value */
-declare function formatValue(type: string, value: any): any;
-/** @param {{namespace:string,name:string}} typeRef */
-declare function key(typeRef: {
-    namespace: string;
-    name: string;
-}): string;
-/** @param {{namespace:string,name:string}} a
-    @param {{namespace:string,name:string}} b */
-declare function equals(a: {
-    namespace: string;
-    name: string;
-}, b: {
-    namespace: string;
-    name: string;
-}): boolean;
-declare function isPrimitive(value: any): boolean;
-/** @param {MetadataPropertyType} p
- *  @param {string} attr */
-declare function propHasAttr(p: MetadataPropertyType, attr: string): boolean;
-/** @param {MetadataType} type
- *  @param {string} name */
-declare function getProp(type: MetadataType, name: string): MetadataPropertyType;
-/** @param {{[index:string]:MetadataType}} TypesMap
-    @param {MetadataType} type
-    @return {MetadataPropertyType[]} */
-declare function typeProperties(TypesMap: {
-    [index: string]: MetadataType;
-}, type: MetadataType): MetadataPropertyType[];
 
 /**
  * Returns a reactive store that maintains different resolution states:
