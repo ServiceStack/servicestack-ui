@@ -1,3 +1,5 @@
+import { ApiResult } from './client';
+
 export interface IReturn<T> {
     createResponse(): T;
 }
@@ -780,7 +782,409 @@ export declare class GetCrudEvents extends QueryDb<CrudEvent> implements IReturn
     getMethod(): string;
     createResponse(): QueryResponse<CrudEvent>;
 }
-export declare let APP: AppMetadata;
+/**
+ * Server Metadata containing App capabilities and APIs used to dynamically render the UI
+ */
+export declare let Server: AppMetadata;
+/** Tailwind Responsive Breakpoints
+ * { 2xl:1536, xl:1280, lg:1024, md:768, sm:640 } */
+export declare type Breakpoints = Record<'2xl' | 'xl' | 'lg' | 'md' | 'sm', boolean>;
+/** Return self or reactive proxy of self */
+export declare type Identity = <T>(args: T) => T;
+/** Invoke a Tailwind Definition Rule */
+export declare type Transition = (prop: string, enter: boolean) => boolean;
+/** Publish/Subscribe to App Events */
+export declare type Bus = {
+    subscribe: (type: string, callback: Function) => {
+        unsubscribe: () => void;
+    };
+    publish: (eventType: string, arg: any) => void;
+};
+/** High-level API encapsulating client PetiteVue App */
+export declare type App = {
+    /** Publish/Subscript to App events */
+    events: Bus;
+    /** PetiteVue App instance */
+    readonly petite: any;
+    /** Register map of PetiteVue components using key as Components Name */
+    components: (components: Record<string, Function>) => void;
+    /** Register single component
+     * @param {string} name
+     * @param {string|Function} component Auto Component template HTML or Component Function */
+    component: (name: string, component: string | Function) => void;
+    /** Register Auto Component with $template contents
+     * @param {string} name
+     * @param {string} $template */
+    template: (name: string, $template: string) => void;
+    /** Register map of Auto Components using key as Components Name */
+    templates: (templates: Record<string, string>) => void;
+    /** Register PetiteVue directive */
+    directive: (name: string, fn: Function) => void;
+    /** Register (non-reactive) global App state property */
+    prop: (name: string, val: any) => void;
+    /** Register multiple (non-reactive) global App state props */
+    props: (props: Record<string, any>) => void;
+    /** Build PetiteVue App instance */
+    build: (args: Record<string, any>) => any;
+    /** Dynamically load external script src */
+    import: (arg0: string) => Promise<any>;
+    /** Register callback to invoke after App has started */
+    onStart: (f: Function) => void;
+    /** Start App instance */
+    start: () => void;
+    /** App function for unsubscribing 'sub' subscription in Component instance */
+    unsubscribe: () => void;
+    /** PetiteVue.createApp - create PetiteVue instance */
+    createApp: (args: any) => any;
+    /** PetiteVue.nextTick - register callback to be fired after next async loop */
+    nextTick: (f: Function) => void;
+    /** PetiteVue.reactive - create a reactive store */
+    reactive: Identity;
+};
+/** Utility class for managing Forms UI and behavior */
+export declare type Forms = {
+    getId: (type: MetadataType, row: any) => any;
+    getType: (typeRef: string | {
+        namespace: string;
+        name: string;
+    }) => MetadataType;
+    inputId: (input: any) => any;
+    colClass: (fields: any) => string;
+    inputProp: (prop: any) => {
+        id: any;
+        type: any;
+        'data-type': any;
+    };
+    getPrimaryKey: (type: MetadataType) => any;
+    typeProperties: (type: MetadataType) => MetadataPropertyType[];
+    relativeTime: (val: string | number | Date, rtf?: Intl.RelativeTimeFormat) => string;
+    relativeTimeFromMs: (elapsedMs: number, rtf?: Intl.RelativeTimeFormat) => string;
+    relativeTimeFromDate: (d: Date, from?: Date) => string;
+    Lookup: {};
+    lookupLabel: (model: any, id: any, label: string) => any;
+    refInfo: (row: any, prop: MetadataPropertyType, props: MetadataPropertyType[]) => {
+        href: {
+            op: string;
+            skip: any;
+            edit: any;
+            new: any;
+            $qs: {
+                [x: string]: any;
+            };
+        };
+        icon: any;
+        html: any;
+    };
+    fetchLookupValues: (results: any[], props: MetadataPropertyType[], refreshFn: () => void) => void;
+    theme: ThemeInfo;
+    formClass: string;
+    gridClass: string;
+    opTitle(op: MetadataOperationType): any;
+    forAutoForm(type: MetadataType): (field: any) => void;
+    forCreate(type: MetadataType): (field: any) => void;
+    forEdit(type: MetadataType): (field: any) => void;
+    getFormProp(id: any, type: any): MetadataPropertyType;
+    getGridInputs(formLayout: InputInfo[], f?: (args: {
+        id: any;
+        input: InputInfo;
+        rowClass: string;
+    }) => void): {
+        id: any;
+        input: InputInfo;
+        rowClass: string;
+    }[];
+    getGridInput(input: InputInfo, f?: (args: {
+        id: any;
+        input: InputInfo;
+        rowClass: string;
+    }) => void): {
+        id: any;
+        input: InputInfo;
+        rowClass: string;
+    };
+    getFieldError(error: any, id: any): any;
+    kvpValues(input: any): any;
+    useLabel(input: any): any;
+    usePlaceholder(input: any): any;
+    isRequired(input: any): any;
+    resolveFormLayout(op: MetadataOperationType): InputInfo[];
+    formValues(form: any): {};
+    formData(form: any, op: MetadataOperationType): any;
+    groupTypes(allTypes: any): any[];
+    complexProp(prop: any): boolean;
+    supportsProp(prop: any): boolean;
+    populateModel(model: any, formLayout: any): any;
+    apiValue(o: any): any;
+    format(o: any, prop: MetadataPropertyType): any;
+};
+/** Generic functionality around AppMetadata */
+export declare type Meta = {
+    /** Global Cache */
+    CACHE: {};
+    /** HTTP Errors specially handled by Locode */
+    HttpErrors: Record<number, string>;
+    /** Map of Request DTO names to `MetadataOperationType` */
+    OpsMap: Record<string, MetadataOperationType>;
+    /** Map of DTO names to `MetadataType` */
+    TypesMap: Record<string, MetadataType>;
+    /** Map of DTO namespace + names to `MetadataType` */
+    FullTypesMap: Record<string, MetadataType>;
+    /** Find `MetadataOperationType` by API name */
+    getOp: (opName: string) => MetadataOperationType;
+    /** Find `MetadataType` by DTO name */
+    getType: (typeRef: ({
+        namespace?: string;
+        name: string;
+    } | string)) => null | MetadataType;
+    /** Check whether a Type is an Enum */
+    isEnum: (type: string) => boolean;
+    /** Get Enum Values of an Enum Type */
+    enumValues: (type: string) => {
+        key: string;
+        value: string;
+    }[];
+    /** Get API Icon */
+    getIcon: (args: ({
+        op?: MetadataOperationType;
+        type?: MetadataType;
+    })) => {
+        svg: string;
+    };
+};
+/** Reactive store to manage page navigation state and sync with history.pushState */
+export declare type Routes = {
+    /** The arg name that's used to identify the page name */
+    page: string;
+    /** Populate Route state */
+    set: (args: Record<string, any>) => void;
+    /** Snapshot of the current route state */
+    state: Record<string, any>;
+    /** Navigate to new route state */
+    to: (args: Record<string, any>) => void;
+    /** Return URL of current route state */
+    href: (args: Record<string, any>) => string;
+};
+/** Custom route params used in API Explorer */
+export declare type ExplorerRoutes = {
+    op?: string;
+    tab?: string;
+    lang?: string;
+    provider?: string;
+    preview?: string;
+    body?: string;
+    doc?: string;
+    detailSrc?: string;
+    form?: string;
+    response?: string;
+};
+/** Route methods used in API Explorer */
+export declare type ExplorerRoutesExtend = {
+    queryHref(): string;
+};
+/** App's primary reactive store maintaining global functionality for Admin UI */
+export declare type ExplorerStore = {
+    cachedFetch: (url: string) => Promise<string>;
+    copied: boolean;
+    readonly opTabs: {
+        [p: string]: string;
+    };
+    sideNav: {
+        expanded: boolean;
+        operations: MetadataOperationType[];
+        tag: string;
+    }[];
+    auth: AuthenticateResponse;
+    readonly displayName: string | null;
+    loadLang: () => void;
+    langCache: () => {
+        op: string;
+        lang: string;
+        url: string;
+    };
+    login: (args: any, $on?: Function) => void;
+    detailSrcResult: {};
+    logout: () => void;
+    readonly isServiceStackType: boolean;
+    api: ApiResult<AuthenticateResponse>;
+    init: () => void;
+    readonly op: MetadataOperationType | null;
+    debug: boolean;
+    readonly filteredSideNav: {
+        tag: string;
+        operations: MetadataOperationType[];
+        expanded: boolean;
+    }[];
+    readonly authProfileUrl: string | null;
+    previewResult: string | null;
+    readonly activeLangSrc: string | null;
+    readonly previewCache: {
+        preview: string;
+        url: string;
+        lang: string;
+    } | null;
+    toggle: (tag: string) => void;
+    getTypeUrl: (types: string) => string;
+    readonly authRoles: string[];
+    filter: string;
+    loadDetailSrc: () => void;
+    baseUrl: string;
+    readonly activeDetailSrc: string;
+    readonly authLinks: LinkInfo[];
+    readonly opName: string;
+    readonly previewSrc: string;
+    SignIn: (opt: any) => Function;
+    hasRole: (role: string) => boolean;
+    loadPreview: () => void;
+    readonly authPermissions: string[];
+    readonly useLang: string;
+    invalidAccess: () => string | null;
+};
+/** Custom route params used in Locode */
+export declare type LocodeRoutes = {
+    op?: string;
+    tab?: string;
+    provider?: string;
+    preview?: string;
+    body?: string;
+    doc?: string;
+    skip?: string;
+    new?: string;
+    edit?: string;
+};
+/** Route methods used in Locode */
+export declare type LocodeRoutesExtend = {
+    onEditChange(any: any): void;
+    update(): void;
+    uiHref(any: any): string;
+};
+export declare type LocodeStore = {
+    cachedFetch: (url: string) => Promise<string>;
+    copied: boolean;
+    sideNav: {
+        expanded: boolean;
+        operations: MetadataOperationType[];
+        tag: string;
+    }[];
+    auth: AuthenticateResponse;
+    readonly displayName: string | null;
+    login: (args: any, $on?: Function) => void;
+    detailSrcResult: any;
+    logout: () => void;
+    readonly isServiceStackType: boolean;
+    readonly opViewModel: string;
+    api: ApiResult<AuthenticateResponse>;
+    modalLookup: any | null;
+    init: () => void;
+    readonly op: MetadataOperationType;
+    debug: boolean;
+    readonly filteredSideNav: {
+        tag: string;
+        operations: MetadataOperationType[];
+        expanded: boolean;
+    }[];
+    readonly authProfileUrl: string | null;
+    previewResult: string | null;
+    readonly opDesc: string;
+    toggle: (tag: string) => void;
+    readonly opDataModel: string;
+    readonly authRoles: string[];
+    filter: string;
+    baseUrl: string;
+    readonly authLinks: LinkInfo[];
+    readonly opName: string;
+    SignIn: (opt: any) => Function;
+    hasRole: (role: string) => boolean;
+    readonly authPermissions: string[];
+    readonly useLang: string;
+    invalidAccess: () => string | null;
+};
+/** Manage users query & filter preferences in the Users browsers localStorage */
+export declare type LocodeSettings = {
+    op: (op: string) => any;
+    lookup: (op: string) => any;
+    saveOp: (op: string, fn: Function) => void;
+    hasPrefs: (op: string) => boolean;
+    saveOpProp: (op: string, name: string, fn: Function) => void;
+    saveLookup: (op: string, fn: Function) => void;
+    events: {
+        op: (op: string) => string;
+        lookup: (op: string) => string;
+        opProp: (op: string, name: string) => string;
+    };
+    opProp: (op: string, name: string) => any;
+    clearPrefs: (op: string) => void;
+};
+/** Create a new state for an API that encapsulates its invocation and execution */
+export declare type ApiState = {
+    op: MetadataOperationType;
+    client: any;
+    apiState: ApiState;
+    formLayout: any;
+    createModel: (args: any) => any;
+    apiLoading: boolean;
+    apiResult: any;
+    readonly api: any;
+    createRequest: (args: any) => any;
+    model: any;
+    title: any;
+    readonly error: ResponseStatus;
+    readonly errorSummary: string | null;
+    fieldError(id: string): string | null;
+    field(propName: string, f?: (args: {
+        id: string;
+        input: InputInfo;
+        rowClass: string;
+    }) => void): any;
+    apiSend(dtoArgs: Record<string, any>, queryArgs?: Record<string, any>): any;
+    apiForm(formData: FormData, queryArgs?: Record<string, any>): any;
+};
+/** All CRUD API States available for this operation */
+export declare type CrudApisState = {
+    opQuery: MetadataOperationType | null;
+    opCreate: MetadataOperationType | null;
+    opPatch: MetadataOperationType | null;
+    opUpdate: MetadataOperationType | null;
+    opDelete: MetadataOperationType | null;
+    apiQuery: ApiState | null;
+    apiCreate: ApiState | null;
+    apiPatch: ApiState | null;
+    apiUpdate: ApiState | null;
+    apiDelete: ApiState | null;
+};
+/** Route methods used in Admin UI */
+export declare type AdminRoutes = {
+    tab?: string;
+    provider?: string;
+    q?: string;
+    page?: string;
+    sort?: string;
+    new?: string;
+    edit?: string;
+};
+/** App's primary reactive store maintaining global functionality for Admin UI */
+export declare type AdminStore = {
+    adminLink(string: any): LinkInfo;
+    init(): void;
+    cachedFetch(string: any): Promise<unknown>;
+    debug: boolean;
+    copied: boolean;
+    auth: AuthenticateResponse | null;
+    readonly authProfileUrl: string | null;
+    readonly displayName: null;
+    readonly link: LinkInfo;
+    readonly isAdmin: boolean;
+    login(any: any): void;
+    readonly adminUsers: AdminUsersInfo;
+    readonly authRoles: string[];
+    filter: string;
+    baseUrl: string;
+    logout(): void;
+    readonly authLinks: LinkInfo[];
+    SignIn(): Function;
+    readonly adminLinks: LinkInfo[];
+    api: ApiResult<AuthenticateResponse> | null;
+    readonly authPermissions: any;
+};
 
 /**
  * Alt solution to optional chaining by only executing fn accessor if object is not null
@@ -800,7 +1204,7 @@ export function setBodyClass(obj: {
 }): void;
 /** Get CSS style property value
  * @param {string} name */
-export function styleProperty(name: string): any;
+export function styleProperty(name: string): string;
 export function setStyleProperty(props: any): void;
 /** Tailwind CSS classes for standard Input controls
  * @param {boolean} [invalid=false]
@@ -1014,30 +1418,6 @@ declare function formatBytes(bytes: number, d?: number): string;
 declare function getFileName(path: string): any;
 declare function flush(): void;
 
-/** @typedef {<T>(args:T) => T} Identity */
-/** @typedef {{
- *     events: {
- *         subscribe: function(string, Function): { unsubscribe: function():void },
- *         publish: function(string, any): void
- *     };
- *     readonly petite: any;    components: function(Object.<string,Function>): void;
- *     component: function(string, any): void;
- *     template: function(string, string): void;
- *     templates: function(Object.<string,string>): void;
- *     directive: function(string, Function): void;
- *     prop: function(string, any): void;
- *     props: function(Object.<string,any>): void;
- *     build: function(Object.<string,any>): any;
- *     plugin: function(Object.<string,any>): void;
- *     import: function(string): Promise<any>;
- *     onStart: function(Function): void;
- *     start: function(): void;
- *     unsubscribe: function(): void;
- *     createApp: function(any): any;
- *     nextTick: function(Function): void;
- *     reactive: Identity;
- * }} App
- */
 /** App to register and build a PetiteVueApp
  * @param {{createApp:(initialData?:any) => any,nextTick:(fn:Function) => void,reactive:Identity}} PetiteVue
  * @returns {App}
@@ -1047,123 +1427,11 @@ export function createApp(PetiteVue: {
     nextTick: (fn: Function) => void;
     reactive: Identity;
 }): App;
-export type Identity = <T>(args: T) => T;
-export type App = {
-    events: {
-        subscribe: (arg0: string, arg1: Function) => {
-            unsubscribe: () => void;
-        };
-        publish: (arg0: string, arg1: any) => void;
-    };
-    readonly petite: any;
-    components: (arg0: {
-        [x: string]: Function;
-    }) => void;
-    component: (arg0: string, arg1: any) => void;
-    template: (arg0: string, arg1: string) => void;
-    templates: (arg0: {
-        [x: string]: string;
-    }) => void;
-    directive: (arg0: string, arg1: Function) => void;
-    prop: (arg0: string, arg1: any) => void;
-    props: (arg0: {
-        [x: string]: any;
-    }) => void;
-    build: (arg0: {
-        [x: string]: any;
-    }) => any;
-    plugin: (arg0: {
-        [x: string]: any;
-    }) => void;
-    import: (arg0: string) => Promise<any>;
-    onStart: (arg0: Function) => void;
-    start: () => void;
-    unsubscribe: () => void;
-    createApp: (arg0: any) => any;
-    nextTick: (arg0: Function) => void;
-    reactive: Identity;
-};
 
-/** @typedef {{
- * getId: (type: MetadataType, row: any) => any;
- *     getType: (typeRef: string | {
- *         namespace: string;
- *         name: string;
- *     }) => MetadataType;
- *     inputId: (input: any) => any;
- *     colClass: (fields: any) => string;
- *     inputProp: (prop: any) => {
- *         id: any;
- *         type: any;
- *         'data-type': any;
- *     };
- *     getPrimaryKey: (type: MetadataType) => any;
- *     typeProperties: (type: MetadataType) => MetadataPropertyType[];
- *     relativeTime: (val: string | number | Date, rtf?: Intl.RelativeTimeFormat) => string;
- *     relativeTimeFromMs: (elapsedMs: number, rtf?: Intl.RelativeTimeFormat) => string;
- *     relativeTimeFromDate: (d: Date, from?: Date) => string;
- *     Lookup: {};
- *     lookupLabel: (model: any, id: any, label: string) => any;
- *     refInfo: (row: any, prop: MetadataPropertyType, props: MetadataPropertyType[]) => {
- *         href: {
- *             op: string;
- *             skip: any;
- *             edit: any;
- *             new: any;
- *             $qs: {
- *                 [x: string]: any;
- *             };
- *         };
- *         icon: any;
- *         html: any;
- *     };
- *     fetchLookupValues: (results: any[], props: MetadataPropertyType[], refreshFn: () => void) => void;
- *     theme: ThemeInfo;
- *     formClass: string;
- *     gridClass: string;
- *     opTitle(op: MetadataOperationType): any;
- *     forAutoForm(type: MetadataType): (field: any) => void;
- *     forCreate(type: MetadataType): (field: any) => void;
- *     forEdit(type: MetadataType): (field: any) => void;
- *     getFormProp(id: any, type: any): MetadataPropertyType;
- *     getGridInputs(formLayout: InputInfo[], f?: (args: {
- *         id: any;
- *         input: InputInfo;
- *         rowClass: string;
- *     }) => void): {
- *         id: any;
- *         input: InputInfo;
- *         rowClass: string;
- *     }[];
- *     getGridInput(input: InputInfo, f?: (args: {
- *         id: any;
- *         input: InputInfo;
- *         rowClass: string;
- *     }) => void): {
- *         id: any;
- *         input: InputInfo;
- *         rowClass: string;
- *     };
- *     getFieldError(error: any, id: any): any;
- *     kvpValues(input: any): any;
- *     useLabel(input: any): any;
- *     usePlaceholder(input: any): any;
- *     isRequired(input: any): any;
- *     resolveFormLayout(op: MetadataOperationType): InputInfo[];
- *     formValues(form: any): {};
- *     formData(form: any, op: MetadataOperationType): any;
- *     groupTypes(allTypes: any): any[];
- *     complexProp(prop: any): boolean;
- *     supportsProp(prop: any): boolean;
- *     populateModel(model: any, formLayout: any): any;
- *     apiValue(o: any): any;
- *     format(o: any, prop: MetadataPropertyType): any;
- * }} Forms
- */
 /** @param {Meta} Meta
  *  @param {ApiCss} css
  *  @param {UiInfo} ui
- *  @return Forms */
+ *  @return {Forms} */
 export function createForms(Meta: Meta, css: ApiCss, ui: UiInfo): Forms;
 /**
  * Useful generic collections around Metadata APIs
@@ -1171,33 +1439,12 @@ export function createForms(Meta: Meta, css: ApiCss, ui: UiInfo): Forms;
  * @param appName
  */
 export function appObjects(app: any, appName: any): {
-    /** Global Cache */
     CACHE: {};
-    /** HTTP Errors specially handled by Locode */
     HttpErrors: Record<number, string>;
-    /** Map of Request DTO names to `MetadataOperationType` */
     OpsMap: Record<string, MetadataOperationType>;
-    /** Map of DTO names to `MetadataType` */
     TypesMap: Record<string, MetadataType>;
-    /** Map of DTO namespace + names to `MetadataType` */
     FullTypesMap: Record<string, MetadataType>;
 };
-/**
- * Generic functionality around AppMetadata
- * @remarks
- * @typedef {{
- *     CACHE: {},
- *     HttpErrors: Record<number, string>,
- *     OpsMap: Record<string, MetadataOperationType>,
- *     TypesMap: Record<string, MetadataType>,
- *     FullTypesMap: Record<string, MetadataType>,
- *     getOp: (opName: string) => MetadataOperationType,
- *     getType: (typeRef: ({ namespace?: string; name: string; } | string)) => null | MetadataType,
- *     isEnum: (type: string) => boolean,
- *     enumValues: (type: string) => {key:string,value:string}[],
- *     getIcon: (args:({op?: MetadataOperationType, type?: MetadataType})) => {svg: string}
- * }} Meta
- */
 /**
  * Generic functionality around AppMetadata
  * @remarks
@@ -1206,107 +1453,6 @@ export function appObjects(app: any, appName: any): {
  * @return {Meta}
  */
 export function createMeta(app: AppMetadata, appName: string): Meta;
-export type Forms = {
-    getId: (type: MetadataType, row: any) => any;
-    getType: (typeRef: string | {
-        namespace: string;
-        name: string;
-    }) => MetadataType;
-    inputId: (input: any) => any;
-    colClass: (fields: any) => string;
-    inputProp: (prop: any) => {
-        id: any;
-        type: any;
-        'data-type': any;
-    };
-    getPrimaryKey: (type: MetadataType) => any;
-    typeProperties: (type: MetadataType) => MetadataPropertyType[];
-    relativeTime: (val: string | number | Date, rtf?: Intl.RelativeTimeFormat) => string;
-    relativeTimeFromMs: (elapsedMs: number, rtf?: Intl.RelativeTimeFormat) => string;
-    relativeTimeFromDate: (d: Date, from?: Date) => string;
-    Lookup: {};
-    lookupLabel: (model: any, id: any, label: string) => any;
-    refInfo: (row: any, prop: MetadataPropertyType, props: MetadataPropertyType[]) => {
-        href: {
-            op: string;
-            skip: any;
-            edit: any;
-            new: any;
-            $qs: {
-                [x: string]: any;
-            };
-        };
-        icon: any;
-        html: any;
-    };
-    fetchLookupValues: (results: any[], props: MetadataPropertyType[], refreshFn: () => void) => void;
-    theme: ThemeInfo;
-    formClass: string;
-    gridClass: string;
-    opTitle(op: MetadataOperationType): any;
-    forAutoForm(type: MetadataType): (field: any) => void;
-    forCreate(type: MetadataType): (field: any) => void;
-    forEdit(type: MetadataType): (field: any) => void;
-    getFormProp(id: any, type: any): MetadataPropertyType;
-    getGridInputs(formLayout: InputInfo[], f?: (args: {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    }) => void): {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    }[];
-    getGridInput(input: InputInfo, f?: (args: {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    }) => void): {
-        id: any;
-        input: InputInfo;
-        rowClass: string;
-    };
-    getFieldError(error: any, id: any): any;
-    kvpValues(input: any): any;
-    useLabel(input: any): any;
-    usePlaceholder(input: any): any;
-    isRequired(input: any): any;
-    resolveFormLayout(op: MetadataOperationType): InputInfo[];
-    formValues(form: any): {};
-    formData(form: any, op: MetadataOperationType): any;
-    groupTypes(allTypes: any): any[];
-    complexProp(prop: any): boolean;
-    supportsProp(prop: any): boolean;
-    populateModel(model: any, formLayout: any): any;
-    apiValue(o: any): any;
-    format(o: any, prop: MetadataPropertyType): any;
-};
-/**
- * Generic functionality around AppMetadata
- */
-export type Meta = {
-    CACHE: {};
-    HttpErrors: Record<number, string>;
-    OpsMap: Record<string, MetadataOperationType>;
-    TypesMap: Record<string, MetadataType>;
-    FullTypesMap: Record<string, MetadataType>;
-    getOp: (opName: string) => MetadataOperationType;
-    getType: (typeRef: ({
-        namespace?: string;
-        name: string;
-    } | string)) => null | MetadataType;
-    isEnum: (type: string) => boolean;
-    enumValues: (type: string) => {
-        key: string;
-        value: string;
-    }[];
-    getIcon: (args: ({
-        op?: MetadataOperationType;
-        type?: MetadataType;
-    })) => {
-        svg: string;
-    };
-};
 
 export namespace Types {
     export { alias };
@@ -1373,8 +1519,6 @@ declare function typeProperties(TypesMap: {
     [index: string]: MetadataType;
 }, type: MetadataType): MetadataPropertyType[];
 
-/** @typedef {import('../js/createApp').App} App */
-/** @typedef {Record<'2xl'|'xl'|'lg'|'md'|'sm',boolean>} Breakpoints */
 /**
  * Returns a reactive store that maintains different resolution states:
  *
@@ -1391,15 +1535,14 @@ declare function typeProperties(TypesMap: {
  * @param {{handlers: {change({previous: *, current: *}): void}}} options
  * @returns {Breakpoints & {previous:Breakpoints,current:Breakpoints,snap:()=>void}}
  */
-export function useBreakpoints(App: App, options: any): Record<"2xl" | "xl" | "lg" | "md" | "sm", boolean> & {
+export function useBreakpoints(App: App, options: any): Breakpoints & {
     previous: Breakpoints;
     current: Breakpoints;
     snap: () => void;
 };
-export type Breakpoints = Record<'2xl' | 'xl' | 'lg' | 'md' | 'sm', boolean>;
 
-/** @typedef {import('../js/createApp').App} App */
 /**
+ * @template {Record<<string,Function>} T
  * Maintain page route state:
  *  - /{pageKey}?{queryKeys}
  * @remarks
@@ -1408,10 +1551,10 @@ export type Breakpoints = Record<'2xl' | 'xl' | 'lg' | 'md' | 'sm', boolean>;
  *   route:to   - navigated by to()
  *   route:nav  - fired for both
  * @param {App} App
- * @param {{page:string,queryKeys:string[],handlers?:{init?:(args:any)=>void,to?:(args:any)=>void,nav?:(args:any)=>void},extend?:Object<string,function>}} opt
- * @return {* & {page:string,set:(args:any)=>void,state:any,to:(args:any)=>void,href:(args:any)=>string}}
+ * @param {{page:string,queryKeys:string[],handlers?:{init?:(args:any)=>void,to?:(args:any)=>void,nav?:(args:any)=>void},extend?:T}} opt
+ * @return {T & Routes}
  */
-export function usePageRoutes(App: App, { page, queryKeys, handlers, extend }: {
+export function usePageRoutes<T extends any>(App: App, { page, queryKeys, handlers, extend }: {
     page: string;
     queryKeys: string[];
     handlers?: {
@@ -1419,12 +1562,9 @@ export function usePageRoutes(App: App, { page, queryKeys, handlers, extend }: {
         to?: (args: any) => void;
         nav?: (args: any) => void;
     };
-    extend?: {
-        [x: string]: Function;
-    };
-}): any;
+    extend?: T;
+}): T & Routes;
 
-/** @typedef {import('../js/createApp').App} App */
 /**
  * Implements https://tailwindui.com transition states by encoding in data-transition attr
  * @example
@@ -1433,10 +1573,8 @@ export function usePageRoutes(App: App, { page, queryKeys, handlers, extend }: {
  *   leaving:  { cls:'transition ease-in-out duration-300 transform', from:'translate-x-0',     to:'-translate-x-full' }
  * }" data-transition-for="sidebar"
  * @param {App} App
- * @param {{[index:string]:boolean}} transitions
- * @return {(prop:string,enter?:boolean) => boolean}
+ * @param {Record<string,boolean>} transitions
+ * @return {Transition}
  */
-export function useTransitions(App: App, transitions: {
-    [index: string]: boolean;
-}): (prop: string, enter?: boolean) => boolean;
+export function useTransitions(App: App, transitions: Record<string, boolean>): Transition;
 

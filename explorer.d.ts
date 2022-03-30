@@ -1,5 +1,6 @@
 import { ApiResult, JsonServiceClient } from './client'
-import { App, Meta, Forms, Breakpoints, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, AuthenticateResponse, AdminUsersInfo } from './shared'
+import { App, Meta, Forms, Routes, Breakpoints, Transition, MetadataOperationType, MetadataType, MetadataPropertyType, InputInfo, ThemeInfo, LinkInfo, AuthenticateResponse, AdminUsersInfo } from './shared'
+import { ExplorerRoutes, ExplorerRoutesExtend, ExplorerStore } from './shared';
 
 export function createClient(fn: any): any;
 /** @type {{expanded: boolean, operations: MetadataOperationType[], tag: string}[]} */
@@ -14,160 +15,33 @@ export let Forms:Forms;
 /**
  * Execute tailwindui.com transition definition rules
  * @remarks
- * @type {(prop:string,enter?:boolean) => boolean}
+ * @type {Transition}
  * */
-export let transition: (prop: string, enter?: boolean) => boolean;
+export let transition: Transition;
 /** @type {Breakpoints & {previous: Breakpoints, current: Breakpoints, snap: (function(): void)}} */
 export let breakpoints: Breakpoints & {
     previous: Breakpoints;
     current: Breakpoints;
     snap: (() => void);
 };
-/** Custom route params used in API Explorer
- * @typedef {{op?:string,tab?:string,lang?:string,provider?:string,preview?:string,body?:string,doc?:string,detailSrc?:string,form?:string,response?:string}} UiRoutes */
-/** Route methods used in API Explorer
- * @typedef {{queryHref(): string}} UiRoutesExtend */
-/**
- * The App's reactive `routes` navigation component used for all App navigation
- * @remarks
- * @type {UiRoutes & UiRoutesExtend & {page: string, set: (function(any): void), state: any, to: (function(any): void), href: (function(any): string)}}
- */
-export let routes: UiRoutes & UiRoutesExtend & {
-    page: string;
-    set: ((arg0: any) => void);
-    state: any;
-    to: ((arg0: any) => void);
-    href: ((arg0: any) => string);
-};
-/**
- * App's primary reactive store maintaining global functionality for API Explorer
- * @remarks
- * @type {{
- * cachedFetch: (url:string) => Promise<string>,
- *     copied: boolean,
- *     readonly opTabs: {[p: string]: string},
- *     sideNav: {expanded: boolean, operations: MetadataOperationType[], tag: string}[],
- *     auth: AuthenticateResponse,
- *     readonly displayName: string|null,
- *     loadLang: () => void,
- *     langCache: () => {op: string, lang: string, url: string},
- *     login: (args:any, $on?:Function) => void,
- *     detailSrcResult: {},
- *     logout: () => void,
- *     readonly isServiceStackType: boolean,
- *     api: ApiResult<AuthenticateResponse>,
- *     init: () => void,
- *     readonly op: MetadataOperationType|null,
- *     debug: boolean,
- *     readonly filteredSideNav: {tag: string, operations: MetadataOperationType[], expanded: boolean}[],
- *     readonly authProfileUrl: string|null,
- *     previewResult: string|null,
- *     readonly activeLangSrc: string|null,
- *     readonly previewCache: {preview: string, url: string, lang: string}|null,
- *     toggle: (tag:string) => void,
- *     getTypeUrl: (types: string) => string,
- *     readonly authRoles: string[],
- *     filter: string,
- *     loadDetailSrc: () => void,
- *     baseUrl: string,
- *     readonly activeDetailSrc: string,
- *     readonly authLinks: LinkInfo[],
- *     readonly opName: string,
- *     readonly previewSrc: string,
- *     SignIn: (opt:any) => Function,
- *     hasRole: (role:string) => boolean,
- *     loadPreview: () => void,
- *     readonly authPermissions: string[],
- *     readonly useLang: string,
- *     invalidAccess: () => string|null
- * }}
- */
-export let store: {
-    cachedFetch: (url: string) => Promise<string>;
-    copied: boolean;
-    readonly opTabs: {
-        [p: string]: string;
-    };
-    sideNav: {
-        expanded: boolean;
-        operations: MetadataOperationType[];
-        tag: string;
-    }[];
-    auth: AuthenticateResponse;
-    readonly displayName: string | null;
-    loadLang: () => void;
-    langCache: () => {
-        op: string;
-        lang: string;
-        url: string;
-    };
-    login: (args: any, $on?: Function) => void;
-    detailSrcResult: {};
-    logout: () => void;
-    readonly isServiceStackType: boolean;
-    api: ApiResult<AuthenticateResponse>;
-    init: () => void;
-    readonly op: MetadataOperationType | null;
-    debug: boolean;
-    readonly filteredSideNav: {
-        tag: string;
-        operations: MetadataOperationType[];
-        expanded: boolean;
-    }[];
-    readonly authProfileUrl: string | null;
-    previewResult: string | null;
-    readonly activeLangSrc: string | null;
-    readonly previewCache: {
-        preview: string;
-        url: string;
-        lang: string;
-    } | null;
-    toggle: (tag: string) => void;
-    getTypeUrl: (types: string) => string;
-    readonly authRoles: string[];
-    filter: string;
-    loadDetailSrc: () => void;
-    baseUrl: string;
-    readonly activeDetailSrc: string;
-    readonly authLinks: LinkInfo[];
-    readonly opName: string;
-    readonly previewSrc: string;
-    SignIn: (opt: any) => Function;
-    hasRole: (role: string) => boolean;
-    loadPreview: () => void;
-    readonly authPermissions: string[];
-    readonly useLang: string;
-    invalidAccess: () => string | null;
-};
-/**
- * Custom route params used in API Explorer
- */
-export type UiRoutes = {
-    op?: string;
-    tab?: string;
-    lang?: string;
-    provider?: string;
-    preview?: string;
-    body?: string;
-    doc?: string;
-    detailSrc?: string;
-    form?: string;
-    response?: string;
-};
-/**
- * Route methods used in API Explorer
- */
-export type UiRoutesExtend = {
-    queryHref(): string;
-};
+/** The App's reactive `routes` navigation component used for all App navigation
+ * @type {ExplorerRoutes & ExplorerRoutesExtend & Routes} */
+export let routes: ExplorerRoutes & ExplorerRoutesExtend & Routes;
+/** App's primary reactive store maintaining global functionality for API Explorer
+ * @type {ExplorerStore} */
+export let store: ExplorerStore;
 
-export let App:App;
+
 /** Method arguments of custom Doc Components */
 export interface DocComponentArgs {
-    store: typeof store;
-    routes: typeof routes;
-    breakpoints: typeof breakpoints;
+    store: ExplorerStore;
+    routes: ExplorerRoutes & Routes;
+    breakpoints: Breakpoints;
     op: () => MetadataOperationType;
 }
+
 /** Method Signature of custom Doc Components */
 export declare type DocComponent = (args:DocComponentArgs) => Record<string,any>;
+
+/** API Explorer App instance */
+export let App:App;
