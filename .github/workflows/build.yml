@@ -25,7 +25,6 @@ jobs:
           npm run build
       - name: Deploy to GitHub Pages
         run: |
-          mv typedoc docs
           cd docs
           git init
           git add -A
