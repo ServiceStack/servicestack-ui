@@ -791,8 +791,6 @@ export declare let Server: AppMetadata;
 export declare type Breakpoints = Record<'2xl' | 'xl' | 'lg' | 'md' | 'sm', boolean>;
 /** Return self or reactive proxy of self */
 export declare type Identity = <T>(args: T) => T;
-/** Return self or reactive proxy of self */
-export declare type MapFn = <T, V>(o: T, f: (o: T) => V) => V | null;
 /** Invoke a Tailwind Definition Rule */
 export declare type Transition = (prop: string, enter: boolean) => boolean;
 /** Publish/Subscribe to App Events */

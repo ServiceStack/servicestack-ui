@@ -1,4 +1,5 @@
-/**
+/** Using typedoc instead of tsdoc for now
+ * 
  * Config file for API Extractor.  For more info, please visit: https://api-extractor.com
  */
 {

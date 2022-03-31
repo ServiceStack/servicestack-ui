@@ -1,3 +1,5 @@
+// Used for tsdoc entry point
+
 /**
  * Type definitions for ServiceStack UI
  * Project: https://servicestack.net

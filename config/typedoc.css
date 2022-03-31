@@ -1,18 +1,34 @@
+body {
+    font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+}
+
+.tsd-page-title {
+    box-shadow: none;
+    border-bottom: 1px solid #eee;
+}
+.tsd-page-title h1 {
+    padding-top: 0.5rem;
+}
+
 ul.tsd-parameters {
     list-style: none;
 }
-.tsd-anchor-link, .tsd-parameters h5, .tsd-parameters-title, .tsd-returns-title {
+h1, h2, h3, .tsd-page-toolbar a.title, .tsd-anchor-link, .tsd-parameters h5, .tsd-returns-title, .tsd-navigation.primary li.current > a {
     font-weight: 500;
 }
 .tsd-parameters-title {
-    color: rgb(107 114 128);
+    color: rgb(156 163 175);
     text-transform: lowercase;
+    font-weight: normal;
+}
+.tsd-panel .tsd-sources a, .tsd-sources a {
+    color: rgb(156 163 175);
 }
 .tsd-returns-title {
     color: rgb(192 38 211);
     text-transform: lowercase;
 }
-.tsd-returns-title::before, .tsd-parameters-title::before {
+.tsd-returns-title::before {
     content: "@";
 }
 .tsd-signature-type {
@@ -60,6 +76,121 @@ ul.tsd-parameters {
 }
 
 .tsd-flag {
-    background-color: rgb(148 163 184);
-    padding: 3px 5px;
+    text-transform: lowercase;
+    background-color: rgb(226 232 240);
+    padding: 2px 4px;
+    color: #666;
 }
+
+.tsd-index-content {
+    padding-top: 10px;
+}
+
+.tsd-kind-class .tsd-kind-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='rgb(37 99 235)' d='M26 16a3.961 3.961 0 0 0-2.02.566l-2.859-2.859l2.293-2.293a2 2 0 0 0 0-2.828l-6-6a2 2 0 0 0-2.828 0l-6 6a2 2 0 0 0 0 2.828l2.293 2.293l-2.859 2.859a4.043 4.043 0 1 0 1.414 1.414l2.859-2.859l2.293 2.293a1.977 1.977 0 0 0 .414.31V22h-3v8h8v-8h-3v-4.277a1.977 1.977 0 0 0 .414-.309l2.293-2.293l2.859 2.859A3.989 3.989 0 1 0 26 16ZM8 20a2 2 0 1 1-2-2a2.002 2.002 0 0 1 2 2Zm10 4v4h-4v-4h4Zm-2-8l-6-6l6-6l6 6Zm10 6a2 2 0 1 1 2-2a2.002 2.002 0 0 1-2 2Z'/%3E%3C/svg%3E");
+    background-size: unset;
+}
+.tsd-index-panel .tsd-kind-class a, .tsd-kind-class a {
+    color: rgb(37 99 235);
+}
+
+.tsd-kind-module .tsd-kind-icon::before {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 15 15"%3E%3Cpath fill="%237c3aed" fill-rule="evenodd" d="M4.671 3.146a.5.5 0 0 0 0 .707l2.475 2.475a.5.5 0 0 0 .707 0l2.475-2.475a.5.5 0 0 0 0-.707L7.853.671a.5.5 0 0 0-.707 0L4.671 3.146ZM7.5 5.268L5.732 3.5L7.5 1.732L9.267 3.5L7.5 5.268Zm1.17 1.878a.5.5 0 0 0 0 .707l2.475 2.475a.5.5 0 0 0 .707 0l2.475-2.475a.5.5 0 0 0 0-.707l-2.475-2.475a.5.5 0 0 0-.707 0L8.671 7.146Zm2.83 2.122L9.732 7.5L11.5 5.732L13.268 7.5L11.5 9.268Zm-6.83 2.585a.5.5 0 0 1 0-.707l2.475-2.475a.5.5 0 0 1 .707 0l2.475 2.475a.5.5 0 0 1 0 .707l-2.475 2.475a.5.5 0 0 1-.707 0L4.67 11.854Zm1.061-.353L7.5 13.268L9.267 11.5L7.5 9.732L5.732 11.5ZM.672 7.146a.5.5 0 0 0 0 .708l2.474 2.474a.5.5 0 0 0 .707 0l2.475-2.474a.5.5 0 0 0 0-.708L3.853 4.672a.5.5 0 0 0-.707 0L.671 7.146ZM3.5 9.268L1.732 7.5L3.5 5.732L5.267 7.5L3.5 9.268Z" clip-rule="evenodd"%2F%3E%3C%2Fsvg%3E');
+    background-size: unset;
+}
+.tsd-index-panel .tsd-kind-module a, .tsd-kind-module a {
+    color: rgb(124 58 237);
+}
+
+.tsd-kind-interface .tsd-kind-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23047857' d='M22 4v3H10V4H2v8h8V9h7.023A4.946 4.946 0 0 0 16 12v8a3.004 3.004 0 0 1-3 3h-3v-3H2v8h8v-3h3a5.006 5.006 0 0 0 5-5v-8a2.998 2.998 0 0 1 2.997-3H22v3h8V4ZM8 10H4V6h4Zm0 16H4v-4h4Zm20-16h-4V6h4Z'/%3E%3C/svg%3E");
+    background-size: unset;
+}
+.tsd-index-panel .tsd-kind-interface a, .tsd-kind-interface a {
+    color: rgb(4 120 87);
+}
+
+.tsd-kind-enum .tsd-kind-icon::before {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 24 24"%3E%3Cpath fill="%23f97316" d="M3 4h4v4H3V4m6 1v2h12V5H9m-6 5h4v4H3v-4m6 1v2h12v-2H9m-6 5h4v4H3v-4m6 1v2h12v-2H9"%2F%3E%3C%2Fsvg%3E');
+    background-size: unset;
+}
+.tsd-index-panel .tsd-kind-enum a, .tsd-kind-enum a {
+    color: rgb(249 115 22);
+}
+
+.tsd-kind-type-alias .tsd-kind-icon::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' stroke='rgb(244 63 94)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6h4m4 0h-4m0 0v12M4 11h3m3 0H7m0 0v7'/%3E%3C/svg%3E");
+    background-size: unset;
+}
+.tsd-index-panel .tsd-kind-type-alias a, .tsd-kind-type-alias a {
+    color: rgb(244 63 94);
+}
+
+.tsd-kind-variable .tsd-kind-icon::before {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 24 24"%3E%3Cg fill="none" stroke="rgb(192 38 211)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"%3E%3Cpath d="M5 4C2.5 9 2.5 14 5 20M19 4c2.5 5 2.5 10 0 16M9 9h1c1 0 1 1 2.016 3.527C13 15 13 16 14 16h1"%2F%3E%3Cpath d="M8 16c1.5 0 3-2 4-3.5S14.5 9 16 9"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+    background-size: unset;
+}
+.tsd-index-panel .tsd-kind-variable a, .tsd-kind-variable a {
+    color: rgb(192 38 211);
+}
+
+.tsd-kind-property.tsd-parent-kind-class > .tsd-kind-icon:before,
+.tsd-kind-get-signature.tsd-parent-kind-class > .tsd-kind-icon:before,
+.tsd-kind-function .tsd-kind-icon::before,
+.tsd-kind-method > .tsd-kind-icon:before,
+.tsd-kind-method.tsd-parent-kind-class > .tsd-kind-icon:before,
+.tsd-kind-function+.tsd-has-type-parameter .tsd-kind-icon::before,
+.tsd-kind-constructor.tsd-parent-kind-class > .tsd-kind-icon:before
+{
+    background-size: unset;
+    background-position: unset;
+    background-repeat: no-repeat;
+}
+
+.tsd-kind-property.tsd-parent-kind-class > .tsd-kind-icon:before,
+.tsd-kind-get-signature.tsd-parent-kind-class > .tsd-kind-icon:before
+{
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 32 32"%3E%3Cpath fill="%23db2777" d="M16.75.406C10.337.406 4 4.681 4 11.6c0 4.4 2.475 6.9 3.975 6.9c.619 0 .975-1.725.975-2.212c0-.581-1.481-1.819-1.481-4.238c0-5.025 3.825-8.588 8.775-8.588c4.256 0 7.406 2.419 7.406 6.863c0 3.319-1.331 9.544-5.644 9.544c-1.556 0-2.888-1.125-2.888-2.737c0-2.363 1.65-4.65 1.65-7.088c0-4.137-5.869-3.387-5.869 1.613c0 1.05.131 2.212.6 3.169c-.863 3.713-2.625 9.244-2.625 13.069c0 1.181.169 2.344.281 3.525c.212.238.106.213.431.094c3.15-4.313 3.038-5.156 4.463-10.8c.769 1.463 2.756 2.25 4.331 2.25c6.637 0 9.619-6.469 9.619-12.3c0-6.206-5.363-10.256-11.25-10.256z"%2F%3E%3C%2Fsvg%3E');
+}
+
+.tsd-kind-function .tsd-kind-icon::before,
+.tsd-kind-method > .tsd-kind-icon:before,
+.tsd-kind-method.tsd-parent-kind-class > .tsd-kind-icon:before
+{
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 24 24"%3E%3Cpath fill="%234338ca" d="M15.6 5.29c-1.1-.1-2.07.71-2.17 1.82L13.18 10H16v2h-3l-.44 5.07a3.986 3.986 0 0 1-4.33 3.63a4.007 4.007 0 0 1-3.06-1.87l1.5-1.5c.24.74.9 1.31 1.73 1.38c1.1.1 2.07-.71 2.17-1.82L11 12H8v-2h3.17l.27-3.07c.19-2.2 2.13-3.83 4.33-3.63c1.31.11 2.41.84 3.06 1.87l-1.5 1.5c-.24-.74-.9-1.31-1.73-1.38Z"%2F%3E%3C%2Fsvg%3E');
+}
+.tsd-kind-function+.tsd-has-type-parameter .tsd-kind-icon::before {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 24 24"%3E%3Cpath fill="%234338ca" d="M12.42 5.29c-1.1-.1-2.07.71-2.17 1.82L10 10h2.82v2h-3l-.44 5.07A4.001 4.001 0 0 1 2 18.83l1.5-1.5c.33 1.05 1.46 1.64 2.5 1.3c.78-.24 1.33-.93 1.4-1.74L7.82 12h-3v-2H8l.27-3.07a4.01 4.01 0 0 1 4.33-3.65c1.26.11 2.4.81 3.06 1.89l-1.5 1.5c-.25-.77-.93-1.31-1.74-1.38M22 13.65l-1.41-1.41l-2.83 2.83l-2.83-2.83l-1.43 1.41l2.85 2.85l-2.85 2.81l1.43 1.41l2.83-2.83l2.83 2.83L22 19.31l-2.83-2.81L22 13.65Z"%2F%3E%3C%2Fsvg%3E');
+}
+.tsd-index-panel .tsd-kind-function a, .tsd-kind-function a {
+    color: rgb(67 56 202);
+}
+
+.tsd-kind-constructor.tsd-parent-kind-class > .tsd-kind-icon:before {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 15 15"%3E%3Cpath fill="none" stroke="%2364748b" d="m10 5.5l-.068-.068a3.182 3.182 0 0 0-2.25-.932H7.5a3 3 0 0 0 0 6h.182c.844 0 1.653-.335 2.25-.932L10 9.5m-8.5 1v-6l6-3.5l6 3.5v6l-6 3.5l-6-3.5Z"%2F%3E%3C%2Fsvg%3E');    
+}
+
+.tsd-panel h3 {
+    padding-top: 10px;
+}
+ul.tsd-hierarchy, ul.tsd-type-parameters {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tsd-filter-group .tsd-widget {
+    opacity: 1;
+    vertical-align: middle;
+    user-select: none;
+}
+
+.tsd-navigation.primary a {
+    color: rgb(31 41 55);
+}
+
+.tsd-type-declaration > .tsd-parameters > .tsd-parameter {
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+}
+/* .tsd-type-declaration .tsd-parameter h5 {
+} */
