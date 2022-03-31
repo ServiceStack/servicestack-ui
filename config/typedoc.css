@@ -192,5 +192,7 @@ ul.tsd-hierarchy, ul.tsd-type-parameters {
     border-top: 1px solid #eee;
     margin-top: 20px;
 }
-/* .tsd-type-declaration .tsd-parameter h5 {
-} */
+
+.tsd-panel .tsd-typography {
+    padding-top: 1rem;
+}

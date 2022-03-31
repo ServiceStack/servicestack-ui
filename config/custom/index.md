@@ -2,19 +2,19 @@
 
 Type definitions for functionality available in ServiceStack UI's
 
-## Shared Namespaces
+### Library Reference
 
 |  Namespace | Description |
 |  --- | --- |
 |  [shared](./api/modules/shared.html)     | Type Definitions for all Types and shared functionality used in all UI's |
 |  [client](./api/modules/client.html)     | Type Definitions for the [@servicestack/client](https://github.com/ServiceStack/servicestack-client) library |
 
-## UIs
+### UIs
 
 |  UI | Description |
-|  [locode](./api/modules/locode.html)     | Type Definitions available in [Locode Apps](https://locode.dev) |
-|  [explorer](./api/modules/explorer.html) | Type Definitions available in [API Explorer](https://docs.servicestack.net/api-explorer) |
-|  [admin](./api/modules/admin.html)       | Type Definitions available in ServiceStack's [Admin UI](https://docs.servicestack.net/admin-ui) |
+|  [locode](./api/modules/locode.html)     | Global App and Type instances available in [Locode Apps](https://locode.dev) |
+|  [explorer](./api/modules/explorer.html) | Global App and Type instances available in [API Explorer](https://docs.servicestack.net/api-explorer) |
+|  [admin](./api/modules/admin.html)       | Global App and Type instances available in ServiceStack's [Admin UI](https://docs.servicestack.net/admin-ui) |
 
 ## Getting Started
 
@@ -25,7 +25,7 @@ When customizing any ServiceStack UI App you can enable static typing and intell
 
 Referencing types are only used to enable static analysis benefits during development and have no impact on runtime execution where they're removed in order for your code to run as-is inside the browser. 
 
-> To satisfy the line processing instructions that removes them, each import statement should be on a **single line** and should contain **no preceding white space**.
+> To satisfy the source transforms, each **import** statement should be on a **single line** and should contain **no preceding white space**.
 
 ### Install
 

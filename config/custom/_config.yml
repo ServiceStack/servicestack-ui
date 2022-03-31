@@ -1,2 +1,20 @@
-title: Locode API Docs
-description: Locode API Docs
+title: @servicestack/ui API Docs
+description: API Reference Docs for Locode, API Explorer & Admin UI
+url: https://docs.locode.dev
+
+plugins:
+  - github-pages
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
