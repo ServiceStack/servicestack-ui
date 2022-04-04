@@ -31,7 +31,7 @@
     },
     "typedocOptions": {
         "entryPoints": ["client.d.ts","shared.d.ts","locode.d.ts","explorer.d.ts","admin.d.ts"],
-        "out": "docs/api",
+        "out": "docs",
         "customCss": "./config/typedoc.css"
     }
 }
