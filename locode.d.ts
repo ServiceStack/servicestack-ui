@@ -37,9 +37,9 @@ export function apiState(op: MetadataOperationType): ApiState | null;
 /**
  * Return all CRUD API States available for this operation
  * @param {string} opName
- * @return {CrudApisState}
+ * @return {CrudApisState|null}
  */
-export function createState(opName: string): CrudApisState;
+export function createState(opName: string): CrudApisState | null;
 /**
  * Execute tailwindui.com transition definition rules
  * @type {Transition}

@@ -836,7 +836,7 @@ export declare type App = {
     unsubscribe: () => void;
     /** PetiteVue.createApp - create PetiteVue instance */
     createApp: (args: any) => any;
-    /** PetiteVue.nextTick - register callback to be fired afterA next async loop */
+    /** PetiteVue.nextTick - register callback to be fired after next async loop */
     nextTick: (f: Function) => void;
     /** PetiteVue.reactive - create a reactive store */
     reactive: Identity;
@@ -1416,16 +1416,30 @@ export function bytes(val: number): string;
 export function htmlTag(tag: string, child?: string, attrs?: any): string;
 /** Create formatted HTML A URL links
  * @param {string} href
- * @param {*} [opt] */
-export function link(href: string, opt?: any): string;
+ * @param {{cls?:string,target?:string,rel?:string}} [opt] */
+export function link(href: string, opt?: {
+    cls?: string;
+    target?: string;
+    rel?: string;
+}): string;
 /** Create formatted HTML A mailto: links
  * @param {string} email
- * @param {*} [opt] */
-export function linkMailTo(email: string, opt?: any): string;
+ * @param {{subject?:string,body?:string,cls?:string,target?:string,rel?:string}} [opt] */
+export function linkMailTo(email: string, opt?: {
+    subject?: string;
+    body?: string;
+    cls?: string;
+    target?: string;
+    rel?: string;
+}): string;
 /** Create formatted HTML A tel: links
  * @param {string} tel
- * @param {*} [opt] */
-export function linkTel(tel: string, opt?: any): string;
+ * @param {{cls?:string,target?:string,rel?:string}} [opt] */
+export function linkTel(tel: string, opt?: {
+    cls?: string;
+    target?: string;
+    rel?: string;
+}): string;
 /** Create HTML IMG Icon from URL
  * @param {string} url */
 export function icon(url: string): string;
