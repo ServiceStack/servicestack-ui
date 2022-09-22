@@ -20,6 +20,26 @@ export interface IPut {
 }
 export interface IDelete {
 }
+export declare class ValidateRule {
+    validator: string;
+    condition: string;
+    errorCode: string;
+    message: string;
+    constructor(init?: Partial<ValidateRule>);
+}
+export declare class ValidationRule extends ValidateRule {
+    id: number;
+    type: string;
+    field: string;
+    createdBy: string;
+    createdDate?: string;
+    modifiedBy: string;
+    modifiedDate?: string;
+    suspendedBy: string;
+    suspendedDate?: string;
+    notes: string;
+    constructor(init?: Partial<ValidationRule>);
+}
 export declare class AdminUserBase {
     userName: string;
     firstName: string;
@@ -71,6 +91,15 @@ export declare class CrudEvent {
     };
     constructor(init?: Partial<CrudEvent>);
 }
+export declare class RedisEndpointInfo {
+    host: string;
+    port: number;
+    ssl?: boolean;
+    db: number;
+    username: string;
+    password: string;
+    constructor(init?: Partial<RedisEndpointInfo>);
+}
 export declare class AppInfo {
     baseUrl: string;
     serviceStackVersion: string;
@@ -102,6 +131,8 @@ export declare class LinkInfo {
     href: string;
     label: string;
     icon: ImageInfo;
+    show: string;
+    hide: string;
     constructor(init?: Partial<LinkInfo>);
 }
 export declare class ThemeInfo {
@@ -133,6 +164,10 @@ export declare class ExplorerUi {
     tags: AppTags;
     constructor(init?: Partial<ExplorerUi>);
 }
+export declare class AdminUi {
+    css: ApiCss;
+    constructor(init?: Partial<AdminUi>);
+}
 export declare class FormatInfo {
     method: string;
     options: string;
@@ -155,6 +190,7 @@ export declare class UiInfo {
     theme: ThemeInfo;
     locode: LocodeUi;
     explorer: ExplorerUi;
+    admin: AdminUi;
     defaultFormats: ApiFormat;
     meta: {
         [index: string]: string;
@@ -175,6 +211,7 @@ export declare class NavItem {
     id: string;
     className: string;
     iconClass: string;
+    iconSrc: string;
     show: string;
     hide: string;
     children: NavItem[];
@@ -210,6 +247,9 @@ export declare class InputInfo {
     step?: number;
     minLength?: number;
     maxLength?: number;
+    accept: string;
+    capture: string;
+    multiple?: boolean;
     allowableValues: string[];
     allowableEntries: KeyValuePair<String, String>[];
     options: string;
@@ -307,8 +347,10 @@ export declare class SharpPagesInfo {
     constructor(init?: Partial<SharpPagesInfo>);
 }
 export declare class RequestLogsInfo {
+    accessRole: string;
     requiredRoles: string[];
     requestLogger: string;
+    defaultLimit: number;
     serviceRoutes: {
         [index: string]: string[];
     };
@@ -316,6 +358,16 @@ export declare class RequestLogsInfo {
         [index: string]: string;
     };
     constructor(init?: Partial<RequestLogsInfo>);
+}
+export declare class ProfilingInfo {
+    accessRole: string;
+    defaultLimit: number;
+    summaryFields: string[];
+    tagLabel: string;
+    meta: {
+        [index: string]: string;
+    };
+    constructor(init?: Partial<ProfilingInfo>);
 }
 export declare class FilesUploadLocation {
     name: string;
@@ -443,6 +495,36 @@ export declare class AdminUsersInfo {
     };
     constructor(init?: Partial<AdminUsersInfo>);
 }
+export declare class AdminRedisInfo {
+    queryLimit: number;
+    databases: number[];
+    modifiableConnection?: boolean;
+    endpoint: RedisEndpointInfo;
+    meta: {
+        [index: string]: string;
+    };
+    constructor(init?: Partial<AdminRedisInfo>);
+}
+export declare class SchemaInfo {
+    alias: string;
+    name: string;
+    tables: string[];
+    constructor(init?: Partial<SchemaInfo>);
+}
+export declare class DatabaseInfo {
+    alias: string;
+    name: string;
+    schemas: SchemaInfo[];
+    constructor(init?: Partial<DatabaseInfo>);
+}
+export declare class AdminDatabaseInfo {
+    queryLimit: number;
+    databases: DatabaseInfo[];
+    meta: {
+        [index: string]: string;
+    };
+    constructor(init?: Partial<AdminDatabaseInfo>);
+}
 export declare class PluginInfo {
     loaded: string[];
     auth: AuthInfo;
@@ -450,8 +532,11 @@ export declare class PluginInfo {
     validation: ValidationInfo;
     sharpPages: SharpPagesInfo;
     requestLogs: RequestLogsInfo;
+    profiling: ProfilingInfo;
     filesUpload: FilesUploadInfo;
     adminUsers: AdminUsersInfo;
+    adminRedis: AdminRedisInfo;
+    adminDatabase: AdminDatabaseInfo;
     meta: {
         [index: string]: string;
     };
@@ -499,6 +584,7 @@ export declare class MetadataTypesConfig {
     defaultImports: string[];
     includeTypes: string[];
     excludeTypes: string[];
+    exportTags: string[];
     treatTypesAsStrings: string[];
     exportValueTypes: boolean;
     globalNamespace: string;
@@ -553,6 +639,19 @@ export declare class MetadataTypes {
     operations: MetadataOperationType[];
     constructor(init?: Partial<MetadataTypes>);
 }
+export declare class ServerStats {
+    redis: {
+        [index: string]: number;
+    };
+    serverEvents: {
+        [index: string]: string;
+    };
+    mqDescription: string;
+    mqWorkers: {
+        [index: string]: number;
+    };
+    constructor(init?: Partial<ServerStats>);
+}
 export declare class ResponseError {
     errorCode: string;
     fieldName: string;
@@ -571,6 +670,87 @@ export declare class ResponseStatus {
         [index: string]: string;
     };
     constructor(init?: Partial<ResponseStatus>);
+}
+export declare class RequestLogEntry {
+    id: number;
+    traceId: string;
+    operationName: string;
+    dateTime: string;
+    statusCode: number;
+    statusDescription: string;
+    httpMethod: string;
+    absoluteUri: string;
+    pathInfo: string;
+    requestBody: string;
+    requestDto: Object;
+    userAuthId: string;
+    sessionId: string;
+    ipAddress: string;
+    forwardedFor: string;
+    referer: string;
+    headers: {
+        [index: string]: string;
+    };
+    formData: {
+        [index: string]: string;
+    };
+    items: {
+        [index: string]: string;
+    };
+    responseHeaders: {
+        [index: string]: string;
+    };
+    session: Object;
+    responseDto: Object;
+    errorResponse: Object;
+    exceptionSource: string;
+    exceptionData: any;
+    requestDuration: string;
+    meta: {
+        [index: string]: string;
+    };
+    constructor(init?: Partial<RequestLogEntry>);
+}
+export declare class DiagnosticEntry {
+    id: number;
+    traceId: string;
+    source: string;
+    eventType: string;
+    message: string;
+    operation: string;
+    threadId: number;
+    error: ResponseStatus;
+    commandType: string;
+    command: string;
+    userAuthId: string;
+    sessionId: string;
+    arg: string;
+    args: string[];
+    argLengths: number[];
+    namedArgs: {
+        [index: string]: Object;
+    };
+    duration?: string;
+    timestamp: number;
+    date: string;
+    tag: string;
+    stackTrace: string;
+    meta: {
+        [index: string]: string;
+    };
+    constructor(init?: Partial<DiagnosticEntry>);
+}
+export declare class RedisSearchResult {
+    id: string;
+    type: string;
+    ttl: number;
+    size: number;
+    constructor(init?: Partial<RedisSearchResult>);
+}
+export declare class RedisText {
+    text: string;
+    children: RedisText[];
+    constructor(init?: Partial<RedisText>);
 }
 export declare class KeyValuePair<TKey, TValue> {
     key: TKey;
@@ -596,6 +776,16 @@ export declare class AppMetadata {
         [index: string]: string;
     };
     constructor(init?: Partial<AppMetadata>);
+}
+export declare class AdminDashboardResponse {
+    serverStats: ServerStats;
+    responseStatus: ResponseStatus;
+    constructor(init?: Partial<AdminDashboardResponse>);
+}
+export declare class GetValidationRulesResponse {
+    results: ValidationRule[];
+    responseStatus: ResponseStatus;
+    constructor(init?: Partial<GetValidationRulesResponse>);
 }
 export declare class AuthenticateResponse implements IHasSessionId, IHasBearerToken {
     userId: string;
@@ -665,12 +855,74 @@ export declare class QueryResponse<T> {
     responseStatus: ResponseStatus;
     constructor(init?: Partial<QueryResponse<T>>);
 }
+export declare class RequestLogsResponse {
+    results: RequestLogEntry[];
+    usage: {
+        [index: string]: string;
+    };
+    total: number;
+    responseStatus: ResponseStatus;
+    constructor(init?: Partial<RequestLogsResponse>);
+}
+export declare class AdminProfilingResponse {
+    results: DiagnosticEntry[];
+    total: number;
+    responseStatus: ResponseStatus;
+    constructor(init?: Partial<AdminProfilingResponse>);
+}
+export declare class AdminRedisResponse {
+    db: number;
+    searchResults: RedisSearchResult[];
+    info: {
+        [index: string]: string;
+    };
+    endpoint: RedisEndpointInfo;
+    result: RedisText;
+    responseStatus: ResponseStatus;
+    constructor(init?: Partial<AdminRedisResponse>);
+}
+export declare class AdminDatabaseResponse {
+    results: {
+        [index: string]: Object;
+    }[];
+    total?: number;
+    columns: MetadataPropertyType[];
+    responseStatus: ResponseStatus;
+    constructor(init?: Partial<AdminDatabaseResponse>);
+}
 export declare class MetadataApp implements IReturn<AppMetadata> {
     view: string;
+    includeTypes: string[];
     constructor(init?: Partial<MetadataApp>);
     getTypeName(): string;
     getMethod(): string;
     createResponse(): AppMetadata;
+}
+export declare class AdminDashboard implements IReturn<AdminDashboardResponse> {
+    constructor(init?: Partial<AdminDashboard>);
+    getTypeName(): string;
+    getMethod(): string;
+    createResponse(): AdminDashboardResponse;
+}
+export declare class GetValidationRules implements IReturn<GetValidationRulesResponse> {
+    authSecret: string;
+    type: string;
+    constructor(init?: Partial<GetValidationRules>);
+    getTypeName(): string;
+    getMethod(): string;
+    createResponse(): GetValidationRulesResponse;
+}
+export declare class ModifyValidationRules implements IReturnVoid {
+    authSecret: string;
+    saveRules: ValidationRule[];
+    deleteRuleIds: number[];
+    suspendRuleIds: number[];
+    unsuspendRuleIds: number[];
+    clearCache?: boolean;
+    constructor(init?: Partial<ModifyValidationRules>);
+    getTypeName(): string;
+    getMethod(): string;
+    createResponse(): void;
 }
 /**
 * Sign In
@@ -782,6 +1034,78 @@ export declare class GetCrudEvents extends QueryDb<CrudEvent> implements IReturn
     getMethod(): string;
     createResponse(): QueryResponse<CrudEvent>;
 }
+export declare class RequestLogs implements IReturn<RequestLogsResponse> {
+    beforeSecs?: number;
+    afterSecs?: number;
+    operationName: string;
+    ipAddress: string;
+    forwardedFor: string;
+    userAuthId: string;
+    sessionId: string;
+    referer: string;
+    pathInfo: string;
+    ids: number[];
+    beforeId?: number;
+    afterId?: number;
+    hasResponse?: boolean;
+    withErrors?: boolean;
+    enableSessionTracking?: boolean;
+    enableResponseTracking?: boolean;
+    enableErrorTracking?: boolean;
+    durationLongerThan?: string;
+    durationLessThan?: string;
+    skip: number;
+    take?: number;
+    orderBy: string;
+    constructor(init?: Partial<RequestLogs>);
+    getTypeName(): string;
+    getMethod(): string;
+    createResponse(): RequestLogsResponse;
+}
+export declare class AdminProfiling implements IReturn<AdminProfilingResponse> {
+    source: string;
+    eventType: string;
+    threadId?: number;
+    traceId: string;
+    userAuthId: string;
+    sessionId: string;
+    tag: string;
+    skip: number;
+    take?: number;
+    orderBy: string;
+    withErrors?: boolean;
+    pending?: boolean;
+    constructor(init?: Partial<AdminProfiling>);
+    getTypeName(): string;
+    getMethod(): string;
+    createResponse(): AdminProfilingResponse;
+}
+export declare class AdminRedis implements IReturn<AdminRedisResponse>, IPost {
+    db?: number;
+    query: string;
+    reconnect: RedisEndpointInfo;
+    take?: number;
+    position?: number;
+    args: string[];
+    constructor(init?: Partial<AdminRedis>);
+    getTypeName(): string;
+    getMethod(): string;
+    createResponse(): AdminRedisResponse;
+}
+export declare class AdminDatabase implements IReturn<AdminDatabaseResponse>, IGet {
+    db: string;
+    schema: string;
+    table: string;
+    fields: string[];
+    take?: number;
+    skip?: number;
+    orderBy: string;
+    include: string;
+    constructor(init?: Partial<AdminDatabase>);
+    getTypeName(): string;
+    getMethod(): string;
+    createResponse(): AdminDatabaseResponse;
+}
 /**
  * Server Metadata containing App capabilities and APIs used to dynamically render the UI
  */
@@ -836,13 +1160,17 @@ export declare type App = {
     unsubscribe: () => void;
     /** PetiteVue.createApp - create PetiteVue instance */
     createApp: (args: any) => any;
-    /** PetiteVue.nextTick - register callback to be fired after next async loop */
+    /** PetiteVue.nextTick - register callback to be fired afterA next async loop */
     nextTick: (f: Function) => void;
     /** PetiteVue.reactive - create a reactive store */
     reactive: Identity;
 };
 /** Utility class for managing Forms UI and behavior */
 export declare type Forms = {
+    /** Server Metadata */
+    Server: AppMetadata;
+    /** Client Metadata APIs */
+    Meta: Meta;
     getId: (type: MetadataType, row: any) => any;
     getType: (typeRef: string | {
         namespace: string;
@@ -928,12 +1256,18 @@ export declare type Meta = {
     CACHE: {};
     /** HTTP Errors specially handled by Locode */
     HttpErrors: Record<number, string>;
+    /** Server Metadata */
+    Server: AppMetadata;
     /** Map of Request DTO names to `MetadataOperationType` */
     OpsMap: Record<string, MetadataOperationType>;
     /** Map of DTO names to `MetadataType` */
     TypesMap: Record<string, MetadataType>;
     /** Map of DTO namespace + names to `MetadataType` */
     FullTypesMap: Record<string, MetadataType>;
+    /** Get list of Request DTOs */
+    operations: MetadataOperationType[];
+    /** Get list of unique API tags */
+    tags: string[];
     /** Find `MetadataOperationType` by API name */
     getOp: (opName: string) => MetadataOperationType;
     /** Find `MetadataType` by DTO name */
@@ -955,6 +1289,10 @@ export declare type Meta = {
     })) => {
         svg: string;
     };
+    /** Get Locode URL */
+    locodeUrl: (op: string) => string;
+    /** Get URL with initial queryString state */
+    urlWithState: (url: string) => string;
 };
 /** Reactive store to manage page navigation state and sync with history.pushState */
 export declare type Routes = {
@@ -1392,6 +1730,10 @@ export class copy {
  * @param {ImageInfo} icon
  * @param {*} [opt] */
 export function iconHtml(icon: ImageInfo, opt?: any): string;
+export function isInput(e: any): boolean;
+/** Whether any modifier keys were pressed
+ * @param {KeyboardEvent} e */
+export function hasModifierKey(e: KeyboardEvent): boolean;
 /** Sort & group operations operations in logical order
  * @param {MetadataOperationType[]} ops
  * @return {MetadataOperationType[]} */
@@ -1402,7 +1744,7 @@ export function sortOps(ops: MetadataOperationType[]): MetadataOperationType[];
  * @return {*|string}
  */
 export function toAppUrl(url: any): any | string;
-/**: format methods */
+/**: format functions */
 /** Format number into USD currency
  * @param {number} val */
 export function currency(val: number): string;
@@ -1457,11 +1799,16 @@ export function iconOnError(img: HTMLImageElement, fallbackSrc?: string): void;
  * @param {string} src
  * @param {string} [fallbackSrc] */
 export function iconFallbackSrc(src: string, fallbackSrc?: string): string;
-/** marker fn, special-cased to hide from query results
+/** Hides field from being displayed in search results
  * @param o
  * @return {string}
  */
 export function hidden(o: any): string;
+/** Return indented JSON
+ * @param o
+ * @return {string}
+ */
+export function indentJson(o: any): string;
 /**
  * API around CRUD APIs
  * @type {{Delete: string, AnyWrite: string[], isCreate: (function(*): any), Create: string, isDelete: (function(*): any), AnyRead: string[], isQuery: (function(*): boolean|null), isCrud: (function(*): boolean|null), Update: string, Patch: string, isUpdate: (function(*): any), isPatch: (function(*): any)}}
