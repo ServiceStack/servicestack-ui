@@ -12,9 +12,9 @@ export interface IHasSessionId {
 export interface IHasBearerToken {
     bearerToken: string;
 }
-export interface IPost {
-}
 export interface IGet {
+}
+export interface IPost {
 }
 export interface IPut {
 }
@@ -845,15 +845,15 @@ export declare class AdminDeleteUserResponse {
     responseStatus: ResponseStatus;
     constructor(init?: Partial<AdminDeleteUserResponse>);
 }
-export declare class QueryResponse<T> {
+export declare class QueryResponse<CrudEvent> {
     offset: number;
     total: number;
-    results: T[];
+    results: CrudEvent[];
     meta: {
         [index: string]: string;
     };
     responseStatus: ResponseStatus;
-    constructor(init?: Partial<QueryResponse<T>>);
+    constructor(init?: Partial<QueryResponse<CrudEvent>>);
 }
 export declare class RequestLogsResponse {
     results: RequestLogEntry[];
@@ -890,7 +890,7 @@ export declare class AdminDatabaseResponse {
     responseStatus: ResponseStatus;
     constructor(init?: Partial<AdminDatabaseResponse>);
 }
-export declare class MetadataApp implements IReturn<AppMetadata> {
+export declare class MetadataApp implements IReturn<AppMetadata>, IGet {
     view: string;
     includeTypes: string[];
     constructor(init?: Partial<MetadataApp>);
@@ -1242,7 +1242,6 @@ export declare type Forms = {
     isRequired(input: any): boolean;
     resolveFormLayout(op: MetadataOperationType): InputInfo[];
     formValues(form: any): Record<string, any>;
-    formData(form: any, op: MetadataOperationType): FormData;
     groupTypes(allTypes: any): any[];
     complexProp(prop: any): boolean;
     supportsProp(prop: any): boolean;
